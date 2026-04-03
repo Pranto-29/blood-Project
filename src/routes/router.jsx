@@ -27,7 +27,7 @@ import Funding from "../pages/Funding/Funding";
 import FundingPage from "../pages/FundingPage/FundingPage";
 import DonationRequest from "../pages/Home/DonationRequest/DonationRequest";
 import CreatePage from "../pages/Dashborad/CreatePage/CreatePage";
-// import RequestDetails from "../pages/Dashborad/RequestDetails/RequestDetails";
+import RequestDetails from "../pages/Dashborad/RequestDetails/RequestDetails";
 
 
 
@@ -75,6 +75,10 @@ export const router = createBrowserRouter([
       {
         path: 'funding',
         element:<Funding></Funding>
+      },
+      {
+        path: "add-request",
+        element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
       },
     {
   path: 'join-us',
@@ -144,6 +148,11 @@ export const router = createBrowserRouter([
       //   path: 'all-blood-donation-requests',
       //   element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
       // }
+      {
+         path: "donation-request",
+         element:<DonationRequest></DonationRequest>
+
+      },
     {
        path: 'all-blood-donation-requests',
        element:<DonationRequest></DonationRequest>

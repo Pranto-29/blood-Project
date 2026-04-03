@@ -131,7 +131,7 @@ const SectionWrapper = ({ children, bg }) => {
 
 const Home = () => {
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <div className="bg-gradient-to-b from-gray-300 text-shadow-pink-700 overflow-hidden">
 
       {/* Banner */}
       <div className="relative">

@@ -32,5 +32,4 @@ const EmergencySupport = () => {
     </section>
   );
 };
-
 export default EmergencySupport;

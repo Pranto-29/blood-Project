@@ -67,9 +67,24 @@ const DashboardLayout = () => {
             <FaUser /> ALL USERS
           </NavLink>
         )
+       },
+
+         {
+        role == 'admin' && (
+             <NavLink
+            to="/dashboard/donation-request"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded hover:bg-red-500 transition ${
+                isActive ? "bg-red-700" : ""
+              }`
+            }
+          >
+            <FaUser /> ALL DONATION REQUEST
+          </NavLink>
+        )
        }
 
-        {/* {
+        {/* /* {
         role == 'admin' && (
              <NavLink
             to="/dashboard/add-request"
@@ -82,7 +97,7 @@ const DashboardLayout = () => {
             <FaUser /> Add Request
           </NavLink>
         )
-       } */}
+       }  */}
           <NavLink
             to="/dashboard/my-request"
             className={({ isActive }) =>
@@ -128,8 +143,22 @@ const DashboardLayout = () => {
               }`
             }
           >
-            <IoIosCreate /> Create Request Page
+            <IoIosCreate /> Add Request Page
           </NavLink>
+
+
+            {
+          role == 'donar' && ( <NavLink
+            to="/dashboard/create-request"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded hover:bg-red-500 transition ${
+                isActive ? "bg-red-700" : ""
+              }`
+            }
+          >
+            <FaUsers /> Create Request
+          </NavLink>)
+         }
 
         </nav>
 
