@@ -51,5 +51,4 @@ const SecurityCards = () => {
     </div>
   );
 };
-
 export default SecurityCards;
