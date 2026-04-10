@@ -80,6 +80,10 @@ export const router = createBrowserRouter([
         path: "add-request",
         element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
       },
+      {
+        path: "requests/:id",
+        element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
+      } ,
     {
   path: 'join-us',
   element: (
@@ -144,10 +148,7 @@ export const router = createBrowserRouter([
         path: 'profile',
         element:<MyProfile></MyProfile>
       },
-      // {
-      //   path: 'all-blood-donation-requests',
-      //   element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
-      // }
+     
       {
          path: "donation-request",
          element:<DonationRequest></DonationRequest>

@@ -338,7 +338,7 @@ const Navbar = () => {
       <li><NavLink to="/funding" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white">Donate Page</NavLink></li>
       <li><NavLink to="/search" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white">Search Page</NavLink></li>
       <li><NavLink to="/funding-page" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white">Funding Page</NavLink></li>
-            <li><NavLink to="/add-request" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white">Request Details</NavLink></li>
+      <li><NavLink to="/requests/:id" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white">Request Details</NavLink></li>
     </>
   );
 
@@ -365,7 +365,6 @@ const Navbar = () => {
               </svg>
             </button>
           </div>
-
           {/* Center: Desktop Menu */}
           <div className="hidden lg:flex lg:items-center lg:space-x-4">
             <ul className="menu menu-horizontal px-1 flex items-center gap-2">{links}</ul>
