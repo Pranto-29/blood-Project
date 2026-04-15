@@ -33,7 +33,7 @@ import Forbiden from '../components/Forbiden/Forbiden';
 const AdminRole = ({ children }) => {
 
   const { loading } = useAuth();
-  const { role, roleLoading } = useRole();   // ✅ ঠিক নাম
+  const { role, roleLoading } = useRole();   /
 
   console.log("Role is:", role);
 
@@ -45,8 +45,7 @@ const AdminRole = ({ children }) => {
     return <Forbiden />;
   }
 
-  return children;  // ✅ simple return
-
+  return children;  //
 };
 
 export default AdminRole;

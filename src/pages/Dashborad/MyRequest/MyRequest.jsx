@@ -1,200 +1,135 @@
 
-
-// import React, { useEffect, useState } from 'react';
-// import useAxiosSecure from '../../../houk/useAxiosSecure';
-
-// const MyRequest = () => {
-//   const axiosSecure = useAxiosSecure();
-
-//   const [requests, setRequests] = useState([]);
-//   const [totalRequests, setTotalRequests] = useState(0);
-//   const [page, setPage] = useState(0);
-//   const size = 5;
-//   const [loading, setLoading] = useState(false);
-//   const [selectedRequest, setSelectedRequest] = useState(null);
-
-//   // Fetch requests
-//   const fetchRequests = () => {
-//     setLoading(true);
-//     axiosSecure
-//       .get(`/my-request?page=${page}&size=${size}`)
-//       .then(res => {
-//         setRequests(res.data.request);
-//         setTotalRequests(res.data.totalRequest);
-//       })
-//       .catch(err => console.error(err))
-//       .finally(() => setLoading(false));
-//   };
-
-//   useEffect(() => {
-//     fetchRequests();
-//   }, [axiosSecure, page]);
-
-//   const totalPages = Math.ceil(totalRequests / size);
-
-//   const statusColor = (status) => {
-//     switch (status) {
-//       case 'pending': return 'bg-yellow-100 text-yellow-800';
-//       case 'approved': return 'bg-green-100 text-green-800';
-//       case 'rejected': return 'bg-red-100 text-red-800';
-//       default: return 'bg-gray-100 text-gray-800';
-//     }
-//   };
-
-//   // Delete request
-//   const handleDelete = async (id) => {
-//     const confirmDelete = window.confirm("Are you sure you want to delete this request?");
-//     if (!confirmDelete) return;
-
-//     try {
-//       await axiosSecure.delete(`/my-request/${id}`);
-//       setRequests(prev => prev.filter(r => r._id !== id));
-//       setTotalRequests(prev => prev - 1);
-//       alert('Request deleted successfully');
-//     } catch (err) {
-//       console.error(err.response?.data || err);
-//       alert('Failed to delete request');
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-6xl mx-auto p-6">
-//       <div className="text-center mb-10">
-//         <h1 className="text-4xl font-bold text-red-600 mb-2">My Donation Requests</h1>
-//         <p className="text-gray-600 text-lg">
-//           You have {totalRequests} donation request{totalRequests !== 1 && 's'}
-//         </p>
-//       </div>
-
-//       {loading && <p className="text-center text-gray-500">Loading requests...</p>}
-//       {!loading && requests.length === 0 && <p className="text-center text-gray-500">No donation requests found.</p>}
-
-//       <div className="space-y-6">
-//         {requests.map(req => (
-//           <div key={req._id} className="bg-white shadow-lg rounded-xl p-6 flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-2xl transition">
-//             <div className="flex-1">
-//               <h3 className="text-xl font-semibold mb-1">{req.recipient_name}</h3>
-//               <p className="text-gray-600"><span className="font-medium">District:</span> {req.recipient_district}</p>
-//               <p className="text-gray-600"><span className="font-medium">Upazila:</span> {req.recipient_upazila}</p>
-//               <p className="text-gray-600"><span className="font-medium">Hospital:</span> {req.hospital_name}</p>
-//               <p className="text-gray-600"><span className="font-medium">Blood Group:</span> {req.blood_group}</p>
-//               <p className="text-gray-400 text-sm mt-1">Requested At: {new Date(req.createdAt).toLocaleString()}</p>
-//             </div>
-
-//             <div className="mt-4 md:mt-0 flex flex-col md:items-end space-y-2">
-//               <span
-//                 className={`px-3 py-1 rounded-full font-semibold text-sm cursor-pointer ${statusColor(req.donation_status)}`}
-//                 onClick={() => setSelectedRequest(req)}
-//               >
-//                 {req.donation_status.toUpperCase()}
-//               </span>
-
-//               <button
-//                 onClick={() => handleDelete(req._id)}
-//                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition text-sm"
-//               >
-//                 Delete
-//               </button>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Pagination */}
-//       {totalPages > 1 && (
-//         <div className="flex justify-center items-center mt-8 space-x-2">
-//           <button disabled={page === 0} onClick={() => setPage(prev => Math.max(prev - 1, 0))} className="px-3 py-1 border rounded disabled:opacity-50">Previous</button>
-//           {[...Array(totalPages)].map((_, i) => (
-//             <button key={i} onClick={() => setPage(i)} className={`px-3 py-1 border rounded ${page === i ? 'bg-blue-500 text-white' : ''}`}>{i + 1}</button>
-//           ))}
-//           <button disabled={page + 1 >= totalPages} onClick={() => setPage(prev => Math.min(prev + 1, totalPages - 1))} className="px-3 py-1 border rounded disabled:opacity-50">Next</button>
-//         </div>
-//       )}
-
-//       {/* Modal */}
-//       {selectedRequest && (
-//         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-//           <div className="bg-white rounded-xl p-6 w-11/12 md:w-1/2">
-//             <h3 className="text-2xl font-bold mb-4 text-red-600">{selectedRequest.recipient_name}</h3>
-//             <p><span className="font-medium">Requester Email:</span> {selectedRequest.requester_email}</p>
-//             <p><span className="font-medium">District:</span> {selectedRequest.recipient_district}</p>
-//             <p><span className="font-medium">Upazila:</span> {selectedRequest.recipient_upazila}</p>
-//             <p><span className="font-medium">Hospital:</span> {selectedRequest.hospital_name}</p>
-//             <p><span className="font-medium">Blood Group:</span> {selectedRequest.blood_group}</p>
-//             <p><span className="font-medium">Full Address:</span> {selectedRequest.full_address}</p>
-//             <p><span className="font-medium">Status:</span> {selectedRequest.donation_status}</p>
-//             <p><span className="font-medium">Requested At:</span> {new Date(selectedRequest.createdAt).toLocaleString()}</p>
-
-//             <div className="mt-4 flex justify-end space-x-2">
-//               <button onClick={() => setSelectedRequest(null)} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Close</button>
-//               <button onClick={() => { handleDelete(selectedRequest._id); setSelectedRequest(null); }} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default MyRequest;
-
-
-
-// 2///
-
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext/AuthContext";
 import useAxiosSecure from "../../../houk/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+
 
 const MyDonationRequests = () => {
-  const { user } = useContext(AuthContext); // logged-in donor
+  const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const [requests, setRequests] = useState([]);
-  const [totalRequests, setTotalRequests] = useState(0);
-  const [page, setPage] = useState(0);
-  const size = 5; // number of rows per page
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState("all");
 
-  // Fetch requests from backend
-  const fetchRequests = () => {
+  const [page, setPage] = useState(0);
+  const size = 8;
+
+  const [filter, setFilter] = useState("all");
+  const [total, setTotal] = useState(0);
+
+  // 🔥 FETCH DATA
+  const fetchData = async () => {
+    if (!user?.email) return;
+
     setLoading(true);
-    axiosSecure
-      .get(`/my-request?page=${page}&size=${size}`)
-      .then((res) => {
-        setRequests(res.data.request);
-        setTotalRequests(res.data.totalRequest);
-      })
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+    try {
+      const res = await axiosSecure.get(
+        `/my-request?page=${page}&size=${size}`
+      );
+
+      setRequests(res.data.request);
+      setTotal(res.data.totalRequest);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchRequests();
-  }, [axiosSecure, page]);
+    fetchData();
+  }, [user?.email, page]);
 
-  const totalPages = Math.ceil(totalRequests / size);
+  // STATUS UPDATE
+  const updateStatus = async (id, status) => {
+    try {
+      await axiosSecure.patch(`/requests/${id}`, {
+        donation_status: status,
+      });
+      fetchData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // Filter requests based on status
-  const filteredRequests =
-    filter === "all"
-      ? requests
-      : requests.filter((r) => r.donation_status === filter);
+  // (Cancel)
+  // const handleDelete = async (id) => {
+  //   const confirm = window.confirm("Are you sure to delete?");
+  //   if (!confirm) return;
+
+  //   try {
+  //     await axiosSecure.delete(`/my-requests/${id}`);
+  //     fetchData();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // const handleEdit = (id) => {
+  //   navigate(`/dashboard/edit-request/${id}`);
+  // };
+
+  const handleDelete = async (id) => {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "This request will be deleted!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      await axiosSecure.delete(`/my-requests/${id}`);
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Request has been deleted.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      fetchData();
+    } catch (err) {
+      Swal.fire("Error!", "Something went wrong", "error");
+    }
+  }
+};
+
+                      const handleEdit = (id) => {
+  console.log("edit clicked:", id);
+  navigate(`/dashboard/add-request/${id}`);
+};
+                      <button
+                        onClick={() => handleEdit(req._id)}
+                        className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
+                      >
+                        Edit
+                      </button>
+  const totalPages = Math.ceil(total / size);
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-red-600 mb-4">
-        My Donation Requests
-      </h1>
 
-      {/* Filter */}
-      <div className="mb-4 flex items-center gap-2">
-        <span className="font-semibold">Filter by status:</span>
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row justify-between items-center mb-5 gap-3">
+        <h2 className="text-2xl font-bold text-red-600">
+          🩸 My Donation Requests
+        </h2>
+
         <select
           value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="border px-2 py-1 rounded"
+          onChange={(e) => {
+            setFilter(e.target.value);
+            setPage(0);
+          }}
+          className="border px-3 py-2 rounded"
         >
           <option value="all">All</option>
           <option value="pending">Pending</option>
@@ -204,88 +139,155 @@ const MyDonationRequests = () => {
         </select>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white shadow-md rounded-lg">
-          <thead className="bg-red-100">
+      {/* TABLE */}
+      <div className="overflow-x-auto bg-white shadow rounded-lg">
+        <table className="w-full text-sm">
+
+          <thead className="bg-red-500 text-white">
             <tr>
-              <th className="py-2 px-4 text-left">Recipient Name</th>
-              <th className="py-2 px-4 text-left">District</th>
-              <th className="py-2 px-4 text-left">Upazila</th>
-              <th className="py-2 px-4 text-left">Hospital</th>
-              <th className="py-2 px-4 text-left">Blood Group</th>
-              <th className="py-2 px-4 text-left">Status</th>
-              <th className="py-2 px-4 text-left">Requested At</th>
+              <th className="p-3">Recipient</th>
+              <th className="p-3">Location</th>
+              <th className="p-3">Blood</th>
+              <th className="p-3">Status</th>
+              <th className="p-3">Actions</th>
+              <th className="p-3">Date</th>
             </tr>
           </thead>
           <tbody>
-            {loading && (
+            {loading ? (
               <tr>
-                <td colSpan="7" className="text-center py-4">
-                  Loading requests...
+                <td colSpan="6" className="text-center p-5">
+                  Loading...
                 </td>
               </tr>
-            )}
-            {!loading && filteredRequests.length === 0 && (
+            ) : requests.length === 0 ? (
               <tr>
-                <td colSpan="7" className="text-center py-4">
-                  No donation requests found.
+                <td colSpan="6" className="text-center p-5">
+                  No Requests Found
                 </td>
               </tr>
+            ) : (
+              requests
+                .filter((req) =>
+                  filter === "all"
+                    ? true
+                    : req.donation_status === filter
+                )
+                .map((req) => (
+                  <tr key={req._id} className="text-center border-b">
+
+                    <td className="p-3">{req.recipient_name}</td>
+
+                    <td className="p-3">
+                      {req.recipient_district}, {req.recipient_upazila}
+                    </td>
+
+                    <td className="p-3 font-bold text-red-600">
+                      {req.blood_group}
+                    </td>
+
+                    {/* STATUS */}
+                    <td className="p-3">
+                      <span
+                        className={`px-3 py-1 rounded-full text-white text-xs font-semibold
+                          ${
+                            req.donation_status === "pending"
+                              ? "bg-yellow-500"
+                              : req.donation_status === "inprogress"
+                              ? "bg-blue-500"
+                              : req.donation_status === "done"
+                              ? "bg-green-500"
+                              : "bg-red-500"
+                          }
+                        `}
+                      >
+                        {req.donation_status}
+                      </span>
+                    </td>
+
+                    {/* ACTION */}
+                    <td className="p-3 space-x-1">
+
+                      {/* EDIT */}
+
+                <button
+                        onClick={() => handleEdit(req._id)}
+                        className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
+                      >
+                        Edit
+                      </button>
+
+                      {/* STATUS */}
+                      <button
+                        onClick={() => updateStatus(req._id, "inprogress")}
+                        className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                      >
+                        In Progress
+                      </button>
+
+                      <button
+                        onClick={() => updateStatus(req._id, "done")}
+                        className="bg-green-500 text-white px-2 py-1 rounded text-xs"
+                      >
+                        Done
+                      </button>
+
+                      {/* DELETE */}
+                      <button
+                        onClick={() => handleDelete(req._id)}
+                        className="bg-red-500 text-white px-2 py-1 rounded text-xs"
+                      >
+                        Cancel
+                      </button>
+
+                    </td>
+
+                    <td className="p-3">
+                      {new Date(req.createdAt).toLocaleDateString()}
+                    </td>
+
+                  </tr>
+                ))
             )}
-            {!loading &&
-              filteredRequests.map((req) => (
-                <tr key={req._id} className="border-b hover:bg-gray-50">
-                  <td className="py-2 px-4">{req.recipient_name}</td>
-                  <td className="py-2 px-4">{req.recipient_district}</td>
-                  <td className="py-2 px-4">{req.recipient_upazila}</td>
-                  <td className="py-2 px-4">{req.hospital_name}</td>
-                  <td className="py-2 px-4">{req.blood_group}</td>
-                  <td className="py-2 px-4 capitalize">{req.donation_status}</td>
-                  <td className="py-2 px-4">
-                    {new Date(req.createdAt).toLocaleString()}
-                  </td>
-                </tr>
-              ))}
+
           </tbody>
         </table>
       </div>
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center mt-4 space-x-2">
+      {/* PAGINATION */}
+      <div className="flex justify-center mt-5 gap-2">
+
+        <button
+          disabled={page === 0}
+          onClick={() => setPage(page - 1)}
+          className="px-3 py-1 border rounded"
+        >
+          Prev
+        </button>
+
+        {[...Array(totalPages).keys()].map((num) => (
           <button
-            disabled={page === 0}
-            onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-            className="px-3 py-1 border rounded disabled:opacity-50"
+            key={num}
+            onClick={() => setPage(num)}
+            className={`px-3 py-1 border rounded ${
+              page === num ? "bg-red-500 text-white" : ""
+            }`}
           >
-            Previous
+            {num + 1}
           </button>
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setPage(i)}
-              className={`px-3 py-1 border rounded ${
-                page === i ? "bg-red-500 text-white" : ""
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
-          <button
-            disabled={page + 1 >= totalPages}
-            onClick={() =>
-              setPage((prev) => Math.min(prev + 1, totalPages - 1))
-            }
-            className="px-3 py-1 border rounded disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      )}
+        ))}
+
+        <button
+          disabled={page + 1 >= totalPages}
+          onClick={() => setPage(page + 1)}
+          className="px-3 py-1 border rounded"
+        >
+          Next
+        </button>
+
+      </div>
     </div>
   );
 };
 
 export default MyDonationRequests;
-

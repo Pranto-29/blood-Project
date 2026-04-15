@@ -13,6 +13,8 @@ const DashboardLayout = () => {
   const { role } = useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  console.log(role)
+
   const navClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-2 rounded-xl transition-all duration-200 ${
       isActive
@@ -65,15 +67,26 @@ const DashboardLayout = () => {
           )}
 
           {/* DONOR */}
-        <NavLink to="/dashboard/my-request" className={navClass}>
+        {/* <NavLink to="/dashboard/my-request" className={navClass}>
                 <MdBloodtype /> My Donation Requests Page
               </NavLink>
 
               <NavLink to="/dashboard/add-request" className={navClass}>
                 <IoIosCreate /> Create Donation Reques
-              </NavLink> 
-               
+              </NavLink>  */}
+              {/* DONOR ONLY */}
+{role === "donnar" && (
+  <>
+    <NavLink to="/dashboard/my-request" className={navClass}>
+      <MdBloodtype /> My Donation Requests
+    </NavLink>
 
+    <NavLink to="/dashboard/add-request" className={navClass}>
+      <IoIosCreate /> Create Donation Request
+    </NavLink>
+  </>
+)}
+              
           {/* VOLUNTEER */}
           {role === "volunteer" && (
             <NavLink to="/dashboard/donation-request" className={navClass}>
