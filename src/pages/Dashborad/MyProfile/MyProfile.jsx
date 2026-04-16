@@ -63,7 +63,7 @@ const MyProfile = () => {
 
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-red-600">My Profile</h2>
+          <h2 className="text-3xl font-bold text-red-500">My Profile</h2>
           <button
             onClick={() => setEditMode(!editMode)}
             className="btn btn-sm bg-red-500 hover:bg-red-600 text-white"
