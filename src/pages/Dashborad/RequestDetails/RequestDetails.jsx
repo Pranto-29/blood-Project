@@ -466,9 +466,6 @@ const RequestDetails = () => {
             This request is already in progress ❤️
           </div>
         )}
-
-        
-
       </div>
     </div>
   );

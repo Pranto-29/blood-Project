@@ -447,7 +447,7 @@ const DonationRequest = () => {
               )}
 
               {/* DONOR */}
-              {currentUser?.role === "donar" && (
+              {currentUser?.role === "donnar" && (
                 <button
                   onClick={() => handleDelete(req._id)}
                   className="bg-gray-700 text-white px-3 py-1 rounded-lg"

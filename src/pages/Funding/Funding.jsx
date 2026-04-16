@@ -199,7 +199,6 @@ const Funding = () => {
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-crimsom opacity-40"></div>
-
       {/* Donation Form */}
       <div className="relative z-10 bg-pink-300 p-8 rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Make a Donation</h2>
