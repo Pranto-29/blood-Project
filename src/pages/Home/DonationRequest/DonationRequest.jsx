@@ -329,7 +329,7 @@ const DonationRequest = () => {
       <div className="bg-white/70 backdrop-blur-md shadow-lg rounded-xl p-4 grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
 
         <input
-          className="border p-2 rounded-lg focus:ring-2 focus:ring-red-300"
+          className="border p-2 rounded-lg focus:ring-2 focus:ring-red-400"
           placeholder="Search name..."
           value={search}
           onChange={e => setSearch(e.target.value)}
