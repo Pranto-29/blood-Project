@@ -48,7 +48,6 @@ const DashboardLayout = () => {
           <NavLink to="/dashboard/home" className={navClass}>
             <FaHome /> Dashboard
           </NavLink>
-
           <NavLink to="/dashboard/profile" className={navClass}>
             <CgProfile /> My Profile
           </NavLink>

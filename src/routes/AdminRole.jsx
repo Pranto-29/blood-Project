@@ -33,7 +33,7 @@ import Forbiden from '../components/Forbiden/Forbiden';
 const AdminRole = ({ children }) => {
 
   const { loading } = useAuth();
-  const { role, roleLoading } = useRole();   /
+  const { role, roleLoading } = useRole();   
 
   console.log("Role is:", role);
 

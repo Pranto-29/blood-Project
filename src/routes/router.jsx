@@ -10,12 +10,11 @@ import PrivateRoute from "./PrivateRoute";
 import DasboradLayout from "../layout/DasboradLayout";
 import Search from "../pages/Home/Contact/search";
 import Blog from "../pages/Blog/Blog";
-
 import MainDashborad from "../pages/Dashborad/MainDashborad/MainDashborad";
 import AddProduct from "../pages/Dashborad/AddProduct/AddProduct";
 import ManagProduct from "../pages/Dashborad/ManagProduct/ManagProduct";
 import User from "../pages/Dashborad/User/User";
-import DashboradHome from "../pages/Dashborad/DashboradHome/DashboradHome";
+
 import MyRequest from "../pages/Dashborad/MyRequest/MyRequest";
 import PaymentSucces from "../pages/PaymentSucces/PaymentSucces";
 import PaymentCancel from "../pages/PaymentCancels/PaymentCancel";
@@ -28,6 +27,7 @@ import FundingPage from "../pages/FundingPage/FundingPage";
 import DonationRequest from "../pages/Home/DonationRequest/DonationRequest";
 import CreatePage from "../pages/Dashborad/CreatePage/CreatePage";
 import RequestDetails from "../pages/Dashborad/RequestDetails/RequestDetails";
+import DashboradHome from "../pages/Dashborad/DashboradHome/DashboradHome";
 
 
 
@@ -124,6 +124,7 @@ export const router = createBrowserRouter([
         index: true,   //  Dashboard default page
         element: <MainDashborad />,
       },
+
       {
         path: "add-product",
         element: <AddProduct />,
@@ -142,8 +143,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "home",
-        element: <DashboradHome></DashboradHome>
+        element: <DashboradHome />
       },
+    
       {
         path: 'profile',
         element:<MyProfile></MyProfile>
