@@ -12,7 +12,6 @@ import { AuthContext } from "../context/AuthContext/AuthContext";
 const DashboardLayout = () => {
   const { role } = useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   console.log(role)
 
   const navClass = ({ isActive }) =>
@@ -76,7 +75,7 @@ const DashboardLayout = () => {
               {/* DONOR ONLY */}
 {role === "donnar" && (
   <>
-    <NavLink to="/dashboard/my-request" className={navClass}>
+    <NavLink to="/dashboard/my-requests" className={navClass}>
       <MdBloodtype /> My Donation Requests
     </NavLink>
 

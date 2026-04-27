@@ -1,51 +1,49 @@
-
-// src/pages/Dashboard/AdminDashboardHome/AdminDashboardHome.jsx
-import React, { useEffect, useState } from "react";
-import useAuth from "../../hooks/useAuth";
-import { FaUsers, FaMoneyBill, FaList } from "react-icons/fa";
+import React, { useEffect, useState, useContext } from "react";
+import useAxiosSecure from "../../../houk/useAxiosSecure";
+import { AuthContext } from "../../../context/AuthContext/AuthContext";
+import { FaUser, FaMoneyBillWave, FaTint } from "react-icons/fa";
 
 const AdminDashboardHome = () => {
-  const { user } = useAuth();
-  const [stats, setStats] = useState({
-    totalUsers: 0,
-    totalFunding: 0,
-    totalDonationRequests: 0,
-  });
+  const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
+
+  const [stats, setStats] = useState([]);
 
   useEffect(() => {
-    // API থেকে stats fetch
-    fetch("/api/admin/dashboard-stats")
-      .then((res) => res.json())
-      .then((data) => setStats(data))
-      .catch((err) => console.error(err));
+    const fetchData = async () => {
+      const users = await axiosSecure.get("/user");
+      const requests = await axiosSecure.get("/requests");
+      const payments = await axiosSecure.get("/payments");
+
+      const totalFunding = payments.data.reduce(
+        (sum, p) => sum + (p.amount || 0),
+        0
+      );
+
+      setStats([
+        { title: "Total Users", value: users.data.length, icon: <FaUser /> },
+        { title: "Total Funding", value: `$${totalFunding}`, icon: <FaMoneyBillWave /> },
+        { title: "Total Requests", value: requests.data.length, icon: <FaTint /> },
+      ]);
+    };
+
+    fetchData();
   }, []);
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Welcome, {user?.name || "Admin"}!</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Welcome Admin, {user?.displayName}
+      </h1>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="p-6 bg-white rounded shadow flex items-center gap-4">
-          <FaUsers className="text-4xl text-red-600" />
-          <div>
-            <p className="text-gray-500">Total Users</p>
-            <p className="text-2xl font-bold">{stats.totalUsers}</p>
+        {stats.map((s, i) => (
+          <div key={i} className="p-4 bg-white shadow rounded">
+            <div className="text-2xl text-red-500">{s.icon}</div>
+            <h2 className="font-bold">{s.title}</h2>
+            <p>{s.value}</p>
           </div>
-        </div>
-        <div className="p-6 bg-white rounded shadow flex items-center gap-4">
-          <FaMoneyBill className="text-4xl text-green-600" />
-          <div>
-            <p className="text-gray-500">Total Funding</p>
-            <p className="text-2xl font-bold">${stats.totalFunding}</p>
-          </div>
-        </div>
-        <div className="p-6 bg-white rounded shadow flex items-center gap-4">
-          <FaList className="text-4xl text-blue-600" />
-          <div>
-            <p className="text-gray-500">Donation Requests</p>
-            <p className="text-2xl font-bold">{stats.totalDonationRequests}</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

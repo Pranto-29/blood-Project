@@ -14,8 +14,6 @@ import MainDashborad from "../pages/Dashborad/MainDashborad/MainDashborad";
 import AddProduct from "../pages/Dashborad/AddProduct/AddProduct";
 import ManagProduct from "../pages/Dashborad/ManagProduct/ManagProduct";
 import User from "../pages/Dashborad/User/User";
-
-import MyRequest from "../pages/Dashborad/MyRequest/MyRequest";
 import PaymentSucces from "../pages/PaymentSucces/PaymentSucces";
 import PaymentCancel from "../pages/PaymentCancels/PaymentCancel";
 import Work from "../pages/Home/Works/work";
@@ -28,6 +26,7 @@ import DonationRequest from "../pages/Home/DonationRequest/DonationRequest";
 import CreatePage from "../pages/Dashborad/CreatePage/CreatePage";
 import RequestDetails from "../pages/Dashborad/RequestDetails/RequestDetails";
 import DashboradHome from "../pages/Dashborad/DashboradHome/DashboradHome";
+import MyDonationRequests from "../pages/Dashborad/MyRequest/MyRequest";
 
 
 
@@ -47,6 +46,7 @@ export const router = createBrowserRouter([
         path: "blog",
         element: <Blog />,
       },
+     
       {
         path: 'work',
         element:<Work></Work>
@@ -84,6 +84,7 @@ export const router = createBrowserRouter([
         path: "requests/:id",
         element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
       } ,
+      
     {
   path: 'join-us',
   element: (
@@ -129,12 +130,9 @@ export const router = createBrowserRouter([
         path: "add-product",
         element: <AddProduct />,
       },
+   
       {
-        path: "my-request",
-        element:<MyRequest></MyRequest>
-      },
-      {
-        path: "add-request",
+        path: "/dashboard/add-request",
         element: <ManagProduct />,
       },
       {
@@ -142,17 +140,20 @@ export const router = createBrowserRouter([
         element:<User />
       },
       {
-        path: "home",
-        element: <DashboradHome />
+        path: "/dashboard/my-requests",
+        element:<MyDonationRequests></MyDonationRequests>
       },
-    
+    {
+  path: "home",
+  element: <MainDashborad />
+},
       {
         path: 'profile',
         element:<MyProfile></MyProfile>
       },
      
       {
-         path: "donation-request",
+         path: "/dashboard/donation-request",
          element:<DonationRequest></DonationRequest>
 
       },
@@ -164,7 +165,7 @@ export const router = createBrowserRouter([
       path: "add-request",
       element:<CreatePage></CreatePage>
     },
-  
+
     ],
   },
 ]);

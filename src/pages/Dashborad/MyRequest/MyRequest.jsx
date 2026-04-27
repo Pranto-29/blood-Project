@@ -1,10 +1,11 @@
 
+
+
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext/AuthContext";
 import useAxiosSecure from "../../../houk/useAxiosSecure";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
-
 
 const MyDonationRequests = () => {
   const { user } = useContext(AuthContext);
@@ -20,18 +21,21 @@ const MyDonationRequests = () => {
   const [filter, setFilter] = useState("all");
   const [total, setTotal] = useState(0);
 
-  // 🔥 FETCH DATA
+  const totalPages = Math.ceil(total / size);
+   const [selectedRequest, setSelectedRequest] = useState(null);
+   const [editData, setEditData] = useState(null);
+  // ================= FETCH =================
   const fetchData = async () => {
     if (!user?.email) return;
 
     setLoading(true);
     try {
       const res = await axiosSecure.get(
-        `/my-request?page=${page}&size=${size}`
+        `/my-request?page=${page}&size=${size}&filter=${filter}`
       );
 
-      setRequests(res.data.request);
-      setTotal(res.data.totalRequest);
+      setRequests(res.data.request || []);
+      setTotal(res.data.totalRequest || 0);
     } catch (err) {
       console.log(err);
     } finally {
@@ -41,41 +45,37 @@ const MyDonationRequests = () => {
 
   useEffect(() => {
     fetchData();
-  }, [user?.email, page]);
+  }, [user?.email, page, filter]);
 
-  // STATUS UPDATE
+  // ================= STATUS UPDATE (FIXED) =================
   const updateStatus = async (id, status) => {
     try {
-      await axiosSecure.patch(`/requests/${id}`, {
+      const res = await axiosSecure.patch(`/requests/${id}`, {
         donation_status: status,
       });
-      fetchData();
+
+      if (res.data.success) {
+        Swal.fire("Success", "Status Updated", "success");
+
+        //  REAL-TIME UI UPDATE (no refetch needed)
+        setRequests((prev) =>
+          prev.map((item) =>
+            item._id === id
+              ? { ...item, donation_status: status }
+              : item
+          )
+        );
+      }
     } catch (err) {
-      console.log(err);
+      Swal.fire("Error", "Update failed", "error",err);
     }
   };
 
-  // (Cancel)
-  // const handleDelete = async (id) => {
-  //   const confirm = window.confirm("Are you sure to delete?");
-  //   if (!confirm) return;
-
-  //   try {
-  //     await axiosSecure.delete(`/my-requests/${id}`);
-  //     fetchData();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const handleEdit = (id) => {
-  //   navigate(`/dashboard/edit-request/${id}`);
-  // };
-
+  // ================= DELETE (FIXED) =================
   const handleDelete = async (id) => {
   const result = await Swal.fire({
     title: "Are you sure?",
-    text: "This request will be deleted!",
+    text: "This request will be deleted permanently!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#d33",
@@ -83,42 +83,56 @@ const MyDonationRequests = () => {
     confirmButtonText: "Yes, delete it!",
   });
 
-  if (result.isConfirmed) {
-    try {
-      await axiosSecure.delete(`/my-requests/${id}`);
+  if (!result.isConfirmed) return;
 
+  try {
+   const res = await  axiosSecure.delete(`/my-requests/${id}`)
+
+    if (res.data?.success) {
       Swal.fire({
         icon: "success",
-        title: "Deleted!",
-        text: "Request has been deleted.",
-        timer: 1500,
-        showConfirmButton: false,
+        title: "Deleted successfully",
       });
 
-      fetchData();
-    } catch (err) {
-      Swal.fire("Error!", "Something went wrong", "error");
-    }
-  }
-};
+      // UI update (instant remove)
+      setRequests((prev) =>
+        prev.filter((item) => item._id !== id)
+      );
 
-                      const handleEdit = (id) => {
-  console.log("edit clicked:", id);
-  navigate(`/dashboard/add-request/${id}`);
+      setTotal((prev) => prev - 1);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Delete failed",
+        text: "Server did not confirm deletion",
+      });
+    }
+  } catch (err) {
+    console.log("DELETE ERROR:", err);
+
+    Swal.fire({
+      icon: "error",
+      title: "Delete failed",
+      text: err?.response?.data?.message || "Something went wrong",
+    });
+  }
+  console.log("Delete function executed for ID:", id);
 };
-                      <button
-                        onClick={() => handleEdit(req._id)}
-                        className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
-                      >
-                        Edit
-                      </button>
-  const totalPages = Math.ceil(total / size);
+console.log("REQUESTS:", requests);
+
+
+
+  // ================= EDIT =================
+  const handleEdit = (id) => {
+    navigate(`/dashboard/add-request/${id}`);
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-6">
 
       {/* HEADER */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-5 gap-3">
+
         <h2 className="text-2xl font-bold text-red-600">
           🩸 My Donation Requests
         </h2>
@@ -137,10 +151,12 @@ const MyDonationRequests = () => {
           <option value="done">Done</option>
           <option value="canceled">Canceled</option>
         </select>
+
       </div>
 
       {/* TABLE */}
       <div className="overflow-x-auto bg-white shadow rounded-lg">
+
         <table className="w-full text-sm">
 
           <thead className="bg-red-500 text-white">
@@ -153,7 +169,9 @@ const MyDonationRequests = () => {
               <th className="p-3">Date</th>
             </tr>
           </thead>
+
           <tbody>
+
             {loading ? (
               <tr>
                 <td colSpan="6" className="text-center p-5">
@@ -167,91 +185,173 @@ const MyDonationRequests = () => {
                 </td>
               </tr>
             ) : (
-              requests
-                .filter((req) =>
-                  filter === "all"
-                    ? true
-                    : req.donation_status === filter
-                )
-                .map((req) => (
-                  <tr key={req._id} className="text-center border-b">
+              requests.map((req) => (
+                <tr key={req._id} className="text-center border-b">
 
-                    <td className="p-3">{req.recipient_name}</td>
+                  <td className="p-3">{req.recipient_name}</td>
 
-                    <td className="p-3">
-                      {req.recipient_district}, {req.recipient_upazila}
-                    </td>
+                  <td className="p-3">
+                    {req.recipient_district}, {req.recipient_upazila}
+                  </td>
 
-                    <td className="p-3 font-bold text-red-600">
-                      {req.blood_group}
-                    </td>
+                  <td className="p-3 text-red-600 font-bold">
+                    {req.blood_group}
+                  </td>
+                
 
-                    {/* STATUS */}
-                    <td className="p-3">
-                      <span
-                        className={`px-3 py-1 rounded-full text-white text-xs font-semibold
-                          ${
-                            req.donation_status === "pending"
-                              ? "bg-yellow-500"
-                              : req.donation_status === "inprogress"
-                              ? "bg-blue-500"
-                              : req.donation_status === "done"
-                              ? "bg-green-500"
-                              : "bg-red-500"
-                          }
-                        `}
-                      >
-                        {req.donation_status}
-                      </span>
-                    </td>
 
-                    {/* ACTION */}
-                    <td className="p-3 space-x-1">
 
-                      {/* EDIT */}
+                  {/* STATUS */}
+                  <td className="p-3">
+                    <span className={`px-3 py-1 rounded-full text-white text-xs
+                      ${
+                        req.donation_status === "pending"
+                          ? "bg-yellow-500"
+                          : req.donation_status === "inprogress"
+                          ? "bg-blue-500"
+                          : req.donation_status === "done"
+                          ? "bg-green-500"
+                          : "bg-gray-500"
+                      }
+                    `}>
+                      {req.donation_status}
+                    </span>
+                  </td>
 
-                <button
-                        onClick={() => handleEdit(req._id)}
-                        className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
-                      >
-                        Edit
-                      </button>
+                  {/* ACTIONS */}
+                  <td className="p-3 space-x-1">
 
-                      {/* STATUS */}
-                      <button
-                        onClick={() => updateStatus(req._id, "inprogress")}
-                        className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
-                      >
-                        In Progress
-                      </button>
+                    <button
+                      onClick={() => handleEdit(req._id)}
+                      className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
+                    >
+                      Edit
+                    </button>
+                    <button
+  onClick={() => setSelectedRequest(req)}
+  className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
+>
+  View
+</button>
+                    
+                    <button
+                      onClick={() => updateStatus(req._id, "inprogress")}
+                      className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                    >
+                      inprogress
+                    </button>
 
-                      <button
-                        onClick={() => updateStatus(req._id, "done")}
-                        className="bg-green-500 text-white px-2 py-1 rounded text-xs"
-                      >
-                        Done
-                      </button>
+                    <button
+                      onClick={() => updateStatus(req._id, "done")}
+                      className="bg-green-500 text-white px-2 py-1 rounded text-xs"
+                    >
+                      Done
+                    </button>
 
-                      {/* DELETE */}
-                      <button
-                        onClick={() => handleDelete(req._id)}
-                        className="bg-red-500 text-white px-2 py-1 rounded text-xs"
-                      >
-                        Cancel
-                      </button>
+               <button
+  onClick={() => updateStatus(req._id, "canceled")}
+  className="bg-gray-600 text-white px-2 py-1 rounded text-xs"
+>
+  Cancel
+</button>
 
-                    </td>
+                    <button
+                      onClick={() => handleDelete(req._id)}
+                      className="bg-red-500 text-white px-2 py-1 rounded text-xs"
+                    >
+                      Delete
+                    </button>
 
-                    <td className="p-3">
-                      {new Date(req.createdAt).toLocaleDateString()}
-                    </td>
+                  </td>
 
-                  </tr>
-                ))
+                  <td className="p-3 text-gray-500 text-xs">
+                    {new Date(req.createdAt).toLocaleDateString()}
+                  </td>
+
+                </tr>
+              ))
             )}
 
           </tbody>
+
         </table>
+
+        {/* ================= MODAL ================= */}
+{selectedRequest && (
+  <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+
+    <div className="bg-white w-[92%] md:w-[450px] rounded-2xl shadow-2xl p-6 relative">
+
+      {/* CLOSE */}
+      <button
+        onClick={() => setSelectedRequest(null)}
+        className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-red-100 text-gray-500 hover:text-red-600 transition"
+      >
+        ✕
+      </button>
+
+      {/* TITLE */}
+      <h2 className="text-xl font-bold text-center mb-6 text-red-500">
+        🩸 Donation Request Details
+      </h2>
+
+      {/* DETAILS */}
+      <div className="space-y-3 text-sm">
+
+        <div className="flex justify-between bg-gray-50 p-3 rounded-lg">
+          <span className="font-medium text-gray-600">Recipient</span>
+          <span className="font-semibold">{selectedRequest.recipient_name}</span>
+        </div>
+
+        <div className="flex justify-between bg-gray-50 p-3 rounded-lg">
+          <span className="font-medium text-gray-600">Blood Group</span>
+          <span className="text-red-500 font-bold">
+            {selectedRequest.blood_group}
+          </span>
+        </div>
+        
+         <div className="flex justify-between bg-gray-50 p-3 rounded-lg">
+          <span className="font-medium text-gray-600">Hospital Name </span>
+          <span className="text-red-500 font-bold">
+            {selectedRequest.hospital_name}
+          </span>
+        </div>
+
+ 
+        <div className="flex justify-between bg-gray-50 p-3 rounded-lg">
+          <span className="font-medium text-gray-600">Status</span>
+          <span>{selectedRequest.donation_status}</span>
+        </div>
+
+  
+
+        <div className="flex justify-between bg-gray-50 p-3 rounded-lg">
+          <span className="font-medium text-gray-600">Location</span>
+          <span>
+            {selectedRequest.recipient_district}, {selectedRequest.recipient_upazila}
+          </span>
+        </div>
+
+        <div className="flex justify-between bg-gray-50 p-3 rounded-lg">
+          <span className="font-medium text-gray-600">Date</span>
+          <span className="text-gray-500 text-xs">
+            {new Date(selectedRequest.createdAt).toLocaleString()}
+          </span>
+        </div>
+
+      </div>
+
+      {/* CLOSE BUTTON */}
+      <button
+        onClick={() => setSelectedRequest(null)}
+        className="mt-5 w-full bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 rounded-lg hover:opacity-90 transition"
+      >
+        Close
+      </button>
+
+    </div>
+  </div>
+)}
       </div>
 
       {/* PAGINATION */}
@@ -286,8 +386,10 @@ const MyDonationRequests = () => {
         </button>
 
       </div>
+
     </div>
   );
 };
 
 export default MyDonationRequests;
+

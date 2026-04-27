@@ -86,13 +86,13 @@ await axiosSecure.post('/user', userInfo);
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-100 px-4">
+    <div className="h-screen flex flex-col items-center justify-center bg-white-100 px-4 bg-gradient-to-br from-pink-200 to-pink-300">
 
-      <h2 className="text-3xl font-bold text-center">Welcome to Blood Donation</h2>
-      <p className="text-xl text-center font-semibold">Please Register</p>
+      {/* <h2 className="text-3xl font-bold text-center">Welcome to Blood Donation</h2> */}
+      <p className="text-xl text-center font-semibold">Welcome to Blood Donation</p>
 
       <form
-        className="bg-gray-200 p-8 rounded-2xl shadow-xl w-full max-w-sm mt-4"
+        className="bg-pink-200 p-8 rounded-2xl shadow-xl w-full max-w-sm mt-4"
         onSubmit={handleSubmit(handleRegistration)}
       >
         <fieldset className="space-y-4">

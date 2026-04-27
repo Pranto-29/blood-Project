@@ -1,20 +1,27 @@
-import React from 'react';
 
-const MainDashborad = ({ role }) => {
-    return (
-        <div>
-            {role === 'admin' ? (
-                <h1>Admin Dashboard</h1>
-            ) : role === 'donnar' ? (
-                <h1>Donar Dashboard</h1>
-            ) : role === 'volunteer' ? (
-                <h1>Volunteer Dashboard</h1>
-            ) : (
-                <h1>No Role Found</h1>
-            )}
-        </div>
-    );
+
+import React, { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext/AuthContext";
+import DonorDashboardHome from "../DonarDashboradHome/DonorDashboardHome";
+import AdminDashboardHome from "./AdminDashboradHome";
+
+
+
+
+
+const MainDashborad = () => {
+  const { role } = useContext(AuthContext);
+
+  return (
+    <div>
+      {role === "admin" && <AdminDashboardHome />},
+
+      {role === "donnar" && <DonorDashboardHome />},
+
+      {role === "volunteer" && <AdminDashboardHome />},
+
+    </div>
+  );
 };
 
 export default MainDashborad;
-
