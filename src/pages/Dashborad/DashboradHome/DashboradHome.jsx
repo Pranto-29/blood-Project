@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 
 // // export default DashboardHome;
@@ -160,16 +159,5 @@ const DashboardHome = () => {
 export default DashboardHome;
 
 
-=======
-import React from 'react';
 
-const DashboradHome = () => {
-    return (
-        <div>
-            hiewjkrf
-        </div>
-    );
-};
 
-export default DashboradHome;
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc

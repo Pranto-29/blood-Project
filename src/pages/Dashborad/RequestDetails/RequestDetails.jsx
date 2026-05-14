@@ -1,206 +1,42 @@
-<<<<<<< HEAD
 
-import { useParams } from "react-router-dom";
-import React, { useState, useEffect, useContext } from "react";
-=======
+
 // import React, { useEffect, useState, useContext } from "react";
 // import { useParams, useNavigate, Link } from "react-router-dom";
 // import useAxiosSecure from "../../../houk/useAxiosSecure";
 // import { AuthContext } from "../../../context/AuthContext/AuthContext";
-// import axios from "axios";
 
 // const RequestDetails = () => {
 //   const { id } = useParams();
-//   const navigate = useNavigate();
 //   const { user } = useContext(AuthContext);
 //   const axiosSecure = useAxiosSecure();
 
-//   const [request, setRequest] = useState(null);
+//   const [data, setData] = useState(null);
+//   const [loading, setLoading] = useState(true)
+//   const { user } = useContext(AuthContext);
+//   const axiosSecure = useAxiosSecure();
+
+//   const [data, setData] = useState(null);
 //   const [loading, setLoading] = useState(true);
-//   const [showModal, setShowModal] = useState(false);
-//   const [donationLoading, setDonationLoading] = useState(false);
 
-//   // Fetch request details
-//   useEffect(() => {
-//     axios
-//       .get(`http://localhost:5000/requests/${id}`)
-//       .then((res) => {
-//         setRequest(res.data);
-//         setLoading(false);
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//         alert("Request not found");
-//         navigate("/dashboard/donation-request");
-//       });
-//   }, [id, navigate]);
-
-//   if (loading) return <p className="p-6 text-lg">Loading request details...</p>;
-//   if (!request) return <p className="p-6 text-red-500 text-lg">Request not found</p>;
-
-//   // Handle donation confirmation
-//   const handleConfirmDonation = async () => {
-//     setDonationLoading(true);
-//     try {
-//       const res = await axiosSecure.patch(`/update/request/status/${id}`, {
-//         status: "inprogress",
-//         donor_name: user.displayName,
-//         donor_email: user.email,
-//       });
-
-//       if (res.data.modifiedCount > 0) {
-//         setRequest({ ...request, status: "inprogress" });
-//         alert("Donation confirmed! Status updated to inprogress.");
-//         setShowModal(false);
-//       }
-//     } catch (err) {
-//       console.error(err);
-//       alert("Failed to confirm donation");
-//     } finally {
-//       setDonationLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-3xl mx-auto bg-white shadow-md p-6 rounded mt-6">
-//       {/* Back button */}
-//       <Link
-//         to="/dashboard/all-blood-donation-requests"
-//         className="btn btn-sm btn-ghost mb-4"
-//       >
-//         ← Back to Requests
-//       </Link>
-
-//       <h2 className="text-2xl font-bold mb-6 text-center text-red-600">
-//         Blood Donation Request Details
-//       </h2>
-
-//       {/* Request Info */}
-//       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 mb-6">
-//         <div>
-//           <p>
-//             <span className="font-semibold">Recipient Name:</span> {request.recipient_name}
-//           </p>
-//           <p>
-//             <span className="font-semibold">Blood Group:</span> {request.blood_group}
-//           </p>
-//           <p>
-//             <span className="font-semibold">District:</span> {request.recipient_district}
-//           </p>
-//           <p>
-//             <span className="font-semibold">Upazila:</span> {request.recipient_upazila}
-//           </p>
-//         </div>
-//         <div>
-//           <p>
-//             <span className="font-semibold">Hospital:</span> {request.hospital_name}
-//           </p>
-//           <p>
-//             <span className="font-semibold">Full Address:</span> {request.full_address}
-//           </p>
-//           <p>
-//             <span className="font-semibold">Message:</span> {request.request_message}
-//           </p>
-//           <p>
-//             <span className="font-semibold">Status:</span> {request.status || "Pending"}
-//           </p>
-//           <p>
-//             <span className="font-semibold">Requested By:</span> {request.requester_name} (
-//             {request.requester_email})
-//           </p>
-//           <p>
-//             <span className="font-semibold">Created At:</span>{" "}
-//             {new Date(request.createdAt).toLocaleString()}
-//           </p>
-//         </div>
-//       </div>
-
-//       {/* Donate Button */}
-//       {request.status === "pending" && (
-//         <button
-//           onClick={() => setShowModal(true)}
-//           className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
-//         >
-//           Donate
-//         </button>
-//       )}
-
-//       {/* Donate Modal */}
-//       {showModal && (
-//         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-//           <div className="bg-white rounded-xl p-6 w-11/12 md:w-1/2">
-//             <h3 className="text-xl font-bold mb-4 text-center text-green-600">
-//               Confirm Donation
-//             </h3>
-
-//             <div className="space-y-3">
-//               <div>
-//                 <label className="font-semibold block mb-1">Donor Name</label>
-//                 <input
-//                   type="text"
-//                   readOnly
-//                   value={user.displayName}
-//                   className="input input-bordered w-full"
-//                 />
-//               </div>
-//               <div>
-//                 <label className="font-semibold block mb-1">Donar Email</label>
-//                 <input
-//                   type="email"
-//                   readOnly
-//                   value={user.email}
-//                   className="input input-bordered w-full"
-//                 />
-//               </div>
-//             </div>
-
-//             <div className="mt-6 flex justify-end space-x-2">
-//               <button
-//                 onClick={() => setShowModal(false)}
-//                 className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 onClick={handleConfirmDonation}
-//                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-//                 disabled={donationLoading}
-//               >
-//                 {donationLoading ? "Confirming..." : "Confirm Donation"}
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default RequestDetails;
-
-
-
-// import React, { useEffect, useState, useContext } from "react";
-// import { useParams, useNavigate, Link } from "react-router-dom";
-// import useAxiosSecure from "../../../houk/useAxiosSecure";
-// import { AuthContext } from "../../../context/AuthContext/AuthContext";
-
-// const RequestDetails = () => {
-//   const { id } = useParams();
+//   const [openModal, setOpenModal] = useState(false);
+//   const [updating, setUpdating] = useState(false);
 //   const navigate = useNavigate();
 //   const axiosSecure = useAxiosSecure();
 //   const { user: currentUser } = useContext(AuthContext);
 
 //   const [request, setRequest] = useState(null);
 //   const [loading, setLoading] = useState(true);
-//   const [showModal, setShowModal] = useState(false);
-//   const [donationLoading, setDonationLoading] = useState(false);
+//   const [amount, setAmount] = useState("");
 
-//   // GET request
+
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
 //         const res = await axiosSecure.get(`/requests/${id}`);
+
+//         setData(res.data);
+//       } catch (err) {
+//         console.log(err);
 //         setRequest(res.data);
 //       } catch (err) {
 //         console.log(err);
@@ -212,222 +48,371 @@ import React, { useState, useEffect, useContext } from "react";
 //     };
 
 //     fetchData();
-//   }, [id]);
 
-//   // confirm donation
-//   const handleConfirmDonation = async () => {
-//     setDonationLoading(true);
+//   }, [id, axiosSecure]);
 
-//     try {
-//       const res = await axiosSecure.patch(`/update/request/status/${id}`, {
-//         donation_status: "inprogress",
-//         donor_name: currentUser.displayName,
-//         donor_email: currentUser.email,
-//       });
+//   // const handleConfirm = async () => {
+//   //   setUpdating(true);
+//   //   try {
+//   //     await axiosSecure.patch(`/update/request/status/${id}`, {
+//   //       donation_status: "inprogress",
+//   //       donor_name: user?.displayName,
+//   //       donor_email: user?.email,
+//   //     });
 
-//       if (res.data.modifiedCount > 0) {
-//         setRequest((prev) => ({
-//           ...prev,
-//           donation_status: "inprogress",
-//         }));
+//   //     setData((prev) => ({
+//   //       ...prev,
+//   //       donation_status: "inprogress",
+//   //     }));
 
-//         setShowModal(false);
-//         alert("Donation confirmed!");
-//       }
-//     } catch (err) {
-//       console.log(err);
-//       alert("Failed to confirm donation");
-//     } finally {
-//       setDonationLoading(false);
-//     }
-//   };
+//   //     setOpenModal(false);
+//   //   } catch (err) {
+//   //     console.log(err);
+//   //     alert("Failed!");
+//   //   } finally {
+//   //     setUpdating(false);
+//   //   }
+//   // };
+//   const handleConfirm = async () => {
+//   setUpdating(true);
+//   try {
+//     await axiosSecure.patch(`/requests/${id}`, {
+//       donation_status: "inprogress",
+//       donor_name: user?.displayName,
+//       donor_email: user?.email,
+//     });
 
-//   if (loading) return <p className="p-6">Loading...</p>;
-//   if (!request) return <p className="p-6 text-red-500">Not found</p>;
+//     setData((prev) => ({
+//       ...prev,
+//       donation_status: "inprogress",
+//     }));
+
+//     setOpenModal(false);
+//   } catch (err) {
+//     console.log("ERROR:", err.response?.data || err.message);
+//     alert("Failed!");
+//   } finally {
+//     setUpdating(false);
+//   }
+// };
+
+//   if (loading)
+//     return (
+//       <p className="text-center mt-20 text-gray-500 text-lg">
+//         Loading request details...
+//       </p>
+//     );
+
+//   if (!data)
+//     return (
+//       <p className="text-center mt-20 text-red-500 text-lg">
+//         Request not found
+//       </p>
+//     );
 
 //   return (
-//     <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded">
+//     <div className="min-h-screen bg-gradient-to-br from-red-50 to-gray-100 flex items-center justify-center p-4">
 
-//       <Link
-//         to="/dashboard/donation-request"
-//         className="text-blue-500 mb-4 inline-block"
-//       >
-//         ← Back
-//       </Link>
+//       {/* CARD */}
+//       <div className="w-full max-w-2xl bg-white shadow-2xl rounded-2xl overflow-hidden">
 
-//       <h2 className="text-2xl font-bold text-red-600 mb-4">
-//         Donation Request Details
-//       </h2>
+//         {/* HEADER */}
+//         <div className="bg-red-500 text-white text-center py-5">
+//           <h2 className="text-2xl font-bold">🩸 Blood Donation Request</h2>
+//         </div>
 
-//       <p><b>Name:</b> {request.recipient_name}</p>
-//       <p><b>Blood Group:</b> {request.blood_group}</p>
-//       <p><b>Hospital:</b> {request.hospital_name}</p>
-//       <p><b>Status:</b> {request.donation_status}</p>
+//         {/* BODY */}
+//         <div className="p-6 space-y-3 text-gray-700">
 
-//       {/* Donate Button */}
-//       {request.donation_status === "pending" && (
-//         <button
-//           onClick={() => setShowModal(true)}
-//           className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
-//         >
-//           Donate
-//         </button>
-//       )}
+//           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-//       {/* Modal */}
-//       {showModal && (
-//         <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-//           <div className="bg-white p-6 rounded w-96">
+//             <p><span className="font-semibold">Recipient:</span> {data.recipient_name}</p>
 
-//             <h3 className="text-xl font-bold mb-4">Confirm Donation</h3>
+//             <p><span className="font-semibold">Blood Group:</span> {data.blood_group}</p>
 
-//             <input
-//               readOnly
-//               value={currentUser.displayName}
-//               className="border p-2 w-full mb-2"
-//             />
+//             <p><span className="font-semibold">District:</span> {data.recipient_district},</p>
 
-//             <input
-//               readOnly
-//               value={currentUser.email}
-//               className="border p-2 w-full mb-4"
-//             />
+//               <p><span className="font-semibold">Upazila:</span> {data.recipient_upazila}</p>
 
-//             <div className="flex justify-end gap-2">
+//             <p><span className="font-semibold">Hospital:</span> {data.hospital_name}</p>
+//           </div>
+
+//           {/* STATUS BADGE */}
+//           <div className="mt-4">
+//             <span className={`px-3 py-1 rounded-full text-sm font-medium
+//               ${data.donation_status === "pending" ? "bg-yellow-100 text-yellow-700" : "bg-green-100 text-green-700"}
+//             `}>
+//               {data.donation_status}
+//             </span>
+//           </div>
+
+//           {/* BUTTON */}
+//           {data.donation_status === "pending" && (
+//             <button
+//               onClick={() => setOpenModal(true)}
+//               className="mt-6 w-full bg-red-500 hover:bg-red-600 text-white py-2.5 rounded-xl transition"
+//             >
+//               Donate Now
+//             </button>
+//           )}
+
+//         </div>
+//       </div>
+
+//       {/* MODAL */}
+//       {openModal && (
+//         <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4">
+
+//           <div className="bg-white w-full max-w-sm rounded-2xl shadow-xl p-6">
+
+//             <h3 className="text-xl font-bold text-center mb-4 text-red-500">
+//               Confirm Donation
+//             </h3>
+
+//             <div className="space-y-3">
+
+//               <input
+//                 readOnly
+//                 value={user?.displayName || ""}
+//                 className="w-full border rounded-lg p-2 bg-pink-200"
+//               />
+
+//               <input
+//                 readOnly
+//                 value={user?.email || ""}
+//                 className="w-full border rounded-lg p-2 bg-gray-100"
+//               />
+
+//             </div>
+
+//             <div className="flex justify-end gap-2 mt-5">
+
 //               <button
-//                 onClick={() => setShowModal(false)}
-//                 className="px-3 py-1 bg-gray-300"
+//                 onClick={() => setOpenModal(false)}
+//                 className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg"
 //               >
 //                 Cancel
 //               </button>
 
 //               <button
-//                 onClick={handleConfirmDonation}
-//                 disabled={donationLoading}
-//                 className="px-3 py-1 bg-green-500 text-white"
+//                 onClick={handleConfirm}
+//                 disabled={updating}
+//                 className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
 //               >
-//                 {donationLoading ? "Saving..." : "Confirm"}
+//                 {updating ? "Processing..." : "Confirm"}
 //               </button>
 //             </div>
 
 //           </div>
 //         </div>
 //       )}
+//     </div>
+//   }, [id];
+
+//   const handleCheckout = async (e) => {
+//     e.preventDefault();
+
+//     const donateAmount = Number(amount);
+
+//     if (!donateAmount || donateAmount <= 0) {
+//       alert("Please enter a valid amount");
+//       return;
+//     }
+
+//     const formData = {
+//       requestId: id,
+//       donorEmail: currentUser?.email,
+//       donorName: currentUser?.displayName,
+//       amount: donateAmount,
+//     };
+
+//     try {
+//       const res = await axiosSecure.post(
+//         "/create-payment-checkout",
+//         formData
+//       );
+
+//       if (res.data.url) {
+//         window.location.href = res.data.url;
+//       }
+//     } catch (err) {
+//       console.log(err);
+//       alert("Payment failed. Try again!");
+//     }
+//   };
+
+//   if (loading) {
+//     return (
+//       <div className="h-screen flex items-center justify-center">
+//         <p className="text-lg font-semibold text-gray-500">Loading...</p>
+//       </div>
+//     );
+//   }
+
+//   if (!request) {
+//     return (
+//       <div className="h-screen flex items-center justify-center">
+//         <p className="text-red-500 text-lg">Request not found</p>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+
+//       <div className="w-full max-w-2xl bg-white shadow-2xl rounded-2xl p-8">
+
+//         {/* Header */}
+//         <Link
+//           to="/dashboard/donation-request"
+//           className="text-blue-500 hover:underline text-sm"
+//         >
+//           ← Back to Requests
+//         </Link>
+
+//         <h2 className="text-3xl font-bold text-red-600 mt-2 mb-6 text-center">
+//           Donation Request Details
+//         </h2>
+
+//         {/* Info Card */}
+//         <div className="bg-red-50 border border-red-200 rounded-xl p-5 space-y-2 mb-6">
+//           <p><b>Recipient Name:</b> {request.recipient_name}</p>
+//           <p><b>Blood Group:</b> {request.blood_group}</p>
+//           <p><b>Hospital:</b> {request.hospital_name}</p>
+//           <p>
+//             <b>Status:</b>{" "}
+//             <span
+//               className={`px-2 py-1 rounded text-white text-sm ${
+//                 request.donation_status === "pending"
+//                   ? "bg-yellow-500"
+//                   : "bg-green-500"
+//               }`}
+//             >
+//               {request.donation_status}
+//             </span>
+//           </p>
+//         </div>
+
+//         {/* Donation Form */}
+//         {request.donation_status === "pending" && (
+//           <form
+//             onSubmit={handleCheckout}
+//             className="bg-gray-50 border rounded-xl p-5 space-y-4"
+//           >
+             
+//             <h3 className="text-lg font-semibold text-gray-700 text-center">
+//               Make a Donation 💖
+//             </h3>
+
+//             <input
+//               type="number"
+//               value={amount}
+//               onChange={(e) => setAmount(e.target.value)}
+//               placeholder="Enter donation amount"
+//               className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+//             />
+
+//             <button
+//               type="submit"
+//               className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-semibold transition"
+//             >
+//               Donate Now
+//             </button>
+
+//           </form>
+//         )}
+
+//         {/* Already donated */}
+//         {request.donation_status !== "pending" && (
+//           <div className="text-center mt-6 text-green-600 font-semibold">
+//             This request is already in progress ❤️
+//           </div>
+//         )}
+//       </div>
 
 //     </div>
 //   );
-// };
 
 // export default RequestDetails;
 
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
 import useAxiosSecure from "../../../houk/useAxiosSecure";
 import { AuthContext } from "../../../context/AuthContext/AuthContext";
 
 const RequestDetails = () => {
   const { id } = useParams();
-<<<<<<< HEAD
-  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const [openModal, setOpenModal] = useState(false);
   const [updating, setUpdating] = useState(false);
-=======
-  const navigate = useNavigate();
-  const axiosSecure = useAxiosSecure();
-  const { user: currentUser } = useContext(AuthContext);
 
-  const [request, setRequest] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [amount, setAmount] = useState("");
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
 
+  // ================= FETCH =================
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axiosSecure.get(`/requests/${id}`);
-<<<<<<< HEAD
         setData(res.data);
-      } catch (err) {
-        console.log(err);
-=======
-        setRequest(res.data);
       } catch (err) {
         console.log(err);
         alert("Request not found");
         navigate("/dashboard/donation-request");
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-<<<<<<< HEAD
-  }, [id, axiosSecure]);
+  }, [id, axiosSecure, navigate]);
 
-  // const handleConfirm = async () => {
-  //   setUpdating(true);
-  //   try {
-  //     await axiosSecure.patch(`/update/request/status/${id}`, {
-  //       donation_status: "inprogress",
-  //       donor_name: user?.displayName,
-  //       donor_email: user?.email,
-  //     });
-
-  //     setData((prev) => ({
-  //       ...prev,
-  //       donation_status: "inprogress",
-  //     }));
-
-  //     setOpenModal(false);
-  //   } catch (err) {
-  //     console.log(err);
-  //     alert("Failed!");
-  //   } finally {
-  //     setUpdating(false);
-  //   }
-  // };
+  // ================= CONFIRM DONATION =================
   const handleConfirm = async () => {
-  setUpdating(true);
-  try {
-    await axiosSecure.patch(`/requests/${id}`, {
-      donation_status: "inprogress",
-      donor_name: user?.displayName,
-      donor_email: user?.email,
-    });
+    setUpdating(true);
+    try {
+      await axiosSecure.patch(`/requests/${id}`, {
+        donation_status: "inprogress",
+        donor_name: user?.displayName,
+        donor_email: user?.email,
+      });
 
-    setData((prev) => ({
-      ...prev,
-      donation_status: "inprogress",
-    }));
+      setData((prev) => ({
+        ...prev,
+        donation_status: "inprogress",
+      }));
 
-    setOpenModal(false);
-  } catch (err) {
-    console.log("ERROR:", err.response?.data || err.message);
-    alert("Failed!");
-  } finally {
-    setUpdating(false);
-  }
-};
+      setOpenModal(false);
+    } catch (err) {
+      console.log("ERROR:", err.response?.data || err.message);
+      alert("Failed!");
+    } finally {
+      setUpdating(false);
+    }
+  };
 
-  if (loading)
+  // ================= LOADING =================
+  if (loading) {
     return (
       <p className="text-center mt-20 text-gray-500 text-lg">
         Loading request details...
       </p>
     );
+  }
 
-  if (!data)
+  // ================= NOT FOUND =================
+  if (!data) {
     return (
       <p className="text-center mt-20 text-red-500 text-lg">
         Request not found
       </p>
     );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-gray-100 flex items-center justify-center p-4">
@@ -443,33 +428,27 @@ const RequestDetails = () => {
         {/* BODY */}
         <div className="p-6 space-y-3 text-gray-700">
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <p><b>Recipient:</b> {data.recipient_name}</p>
+          <p><b>Blood Group:</b> {data.blood_group}</p>
+          <p>
+            <b>Location:</b> {data.recipient_district}, {data.recipient_upazila}
+          </p>
+          <p><b>Hospital:</b> {data.hospital_name}</p>
 
-            <p><span className="font-semibold">Recipient:</span> {data.recipient_name}</p>
-
-            <p><span className="font-semibold">Blood Group:</span> {data.blood_group}</p>
-
-            <p><span className="font-semibold">District:</span> {data.recipient_district},</p>
-
-              <p><span className="font-semibold">Upazila:</span> {data.recipient_upazila}</p>
-
-            <p><span className="font-semibold">Hospital:</span> {data.hospital_name}</p>
-          </div>
-
-          {/* STATUS BADGE */}
-          <div className="mt-4">
-            <span className={`px-3 py-1 rounded-full text-sm font-medium
-              ${data.donation_status === "pending" ? "bg-yellow-100 text-yellow-700" : "bg-green-100 text-green-700"}
-            `}>
-              {data.donation_status}
-            </span>
-          </div>
+          {/* STATUS */}
+          <span className={`px-3 py-1 rounded-full text-sm font-medium
+            ${data.donation_status === "pending"
+              ? "bg-yellow-100 text-yellow-700"
+              : "bg-green-100 text-green-700"}
+          `}>
+            {data.donation_status}
+          </span>
 
           {/* BUTTON */}
           {data.donation_status === "pending" && (
             <button
               onClick={() => setOpenModal(true)}
-              className="mt-6 w-full bg-red-500 hover:bg-red-600 text-white py-2.5 rounded-xl transition"
+              className="mt-6 w-full bg-red-500 hover:bg-red-600 text-white py-2.5 rounded-xl"
             >
               Donate Now
             </button>
@@ -493,7 +472,7 @@ const RequestDetails = () => {
               <input
                 readOnly
                 value={user?.displayName || ""}
-                className="w-full border rounded-lg p-2 bg-pink-200"
+                className="w-full border rounded-lg p-2 bg-pink-100"
               />
 
               <input
@@ -508,7 +487,7 @@ const RequestDetails = () => {
 
               <button
                 onClick={() => setOpenModal(false)}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg"
+                className="px-4 py-2 bg-gray-200 rounded-lg"
               >
                 Cancel
               </button>
@@ -516,140 +495,25 @@ const RequestDetails = () => {
               <button
                 onClick={handleConfirm}
                 disabled={updating}
-                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
+                className="px-4 py-2 bg-green-500 text-white rounded-lg"
               >
                 {updating ? "Processing..." : "Confirm"}
               </button>
+
             </div>
 
           </div>
         </div>
       )}
 
-=======
-  }, [id]);
+      {/* BACK */}
+      <Link
+        to="/dashboard/donation-request"
+        className="absolute top-5 left-5 text-blue-500"
+      >
+        ← Back
+      </Link>
 
-  const handleCheckout = async (e) => {
-    e.preventDefault();
-
-    const donateAmount = Number(amount);
-
-    if (!donateAmount || donateAmount <= 0) {
-      alert("Please enter a valid amount");
-      return;
-    }
-
-    const formData = {
-      requestId: id,
-      donorEmail: currentUser?.email,
-      donorName: currentUser?.displayName,
-      amount: donateAmount,
-    };
-
-    try {
-      const res = await axiosSecure.post(
-        "/create-payment-checkout",
-        formData
-      );
-
-      if (res.data.url) {
-        window.location.href = res.data.url;
-      }
-    } catch (err) {
-      console.log(err);
-      alert("Payment failed. Try again!");
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <p className="text-lg font-semibold text-gray-500">Loading...</p>
-      </div>
-    );
-  }
-
-  if (!request) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <p className="text-red-500 text-lg">Request not found</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-
-      <div className="w-full max-w-2xl bg-white shadow-2xl rounded-2xl p-8">
-
-        {/* Header */}
-        <Link
-          to="/dashboard/donation-request"
-          className="text-blue-500 hover:underline text-sm"
-        >
-          ← Back to Requests
-        </Link>
-
-        <h2 className="text-3xl font-bold text-red-600 mt-2 mb-6 text-center">
-          Donation Request Details
-        </h2>
-
-        {/* Info Card */}
-        <div className="bg-red-50 border border-red-200 rounded-xl p-5 space-y-2 mb-6">
-          <p><b>Recipient Name:</b> {request.recipient_name}</p>
-          <p><b>Blood Group:</b> {request.blood_group}</p>
-          <p><b>Hospital:</b> {request.hospital_name}</p>
-          <p>
-            <b>Status:</b>{" "}
-            <span
-              className={`px-2 py-1 rounded text-white text-sm ${
-                request.donation_status === "pending"
-                  ? "bg-yellow-500"
-                  : "bg-green-500"
-              }`}
-            >
-              {request.donation_status}
-            </span>
-          </p>
-        </div>
-
-        {/* Donation Form */}
-        {request.donation_status === "pending" && (
-          <form
-            onSubmit={handleCheckout}
-            className="bg-gray-50 border rounded-xl p-5 space-y-4"
-          >
-             
-            <h3 className="text-lg font-semibold text-gray-700 text-center">
-              Make a Donation 💖
-            </h3>
-
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter donation amount"
-              className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
-            />
-
-            <button
-              type="submit"
-              className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-semibold transition"
-            >
-              Donate Now
-            </button>
-
-          </form>
-        )}
-
-        {/* Already donated */}
-        {request.donation_status !== "pending" && (
-          <div className="text-center mt-6 text-green-600 font-semibold">
-            This request is already in progress ❤️
-          </div>
-        )}
-      </div>
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
     </div>
   );
 };
