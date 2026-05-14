@@ -27,7 +27,7 @@
 import React from 'react';
 import Logos from '../components/Logos';
 import { Outlet } from 'react-router';
-import authImage from '../assets/banner/volunteer-collecting-blood-donation-free-vector (1).jpg';
+// import authImage from '../assets/banner/volunteer-collecting-blood-donation-free-vector (1).jpg';
 
 const Authlayout = () => {
     return (
@@ -41,13 +41,13 @@ const Authlayout = () => {
                 </div>
 
                 {/* right side image center */}
-                <div className='flex-1 flex justify-center items-center'>
+                {/* <div className='flex-1 flex justify-center items-center'>
                     <img 
                         src={authImage} 
                         alt="auth" 
                         className="w-[90%] object-contain"
                     />
-                </div>
+                </div> */}
             </div>
         </div>
     );

@@ -79,7 +79,7 @@ const Request = () => {
     fetchData();
   }, [id, axiosSecure]);
 
-  // 🔥 Loading
+  //  Loading
   if (loading) {
     return (
       <div className="text-center mt-10 text-gray-500">
@@ -88,7 +88,7 @@ const Request = () => {
     );
   }
 
-  // 🔥 Not found
+  // Not found
   if (!data) {
     return (
       <div className="text-center mt-10 text-red-500">

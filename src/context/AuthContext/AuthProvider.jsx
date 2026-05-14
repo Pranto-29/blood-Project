@@ -48,7 +48,7 @@ const AuthProvider = ({children}) => {
   }, [])
   useEffect(() => {
     if(!user) return
-    axios.get(`http://localhost:5000/user/role/${user.email}`)
+    axios.get(`https://backend-11-asiment.vercel.app/user/role/${user.email}`)
     .then(res => {
         setRole(res.data.role)
         setRoleLoading(false)

@@ -25,7 +25,13 @@ const MyDonationRequests = () => {
    const [selectedRequest, setSelectedRequest] = useState(null);
    const [editData, setEditData] = useState(null);
   
-   
+   const [formData, setFormData] = useState({
+  recipient_name: "",
+  blood_group: "",
+  hospital_name: "",
+  recipient_district: "",
+  recipient_upazila: "",
+});
   // ================= FETCH =================
   const fetchData = async () => {
     if (!user?.email) return;
@@ -69,7 +75,7 @@ const MyDonationRequests = () => {
         );
       }
     } catch (err) {
-      Swal.fire("Error", "Update failed", "error",err);
+      Swal.fire("Error", "Update failed" ,err);
     }
   };
 
@@ -129,45 +135,77 @@ console.log("REQUESTS:", requests);
   //   navigate(`/dashboard/add-request/${id}`);
   // };
 
+// const handleEdit = (req) => {
+//   setEditData(req);
+//   setFormData({
+//     recipient_name: req.recipient_name,
+//     blood_group: req.blood_group,
+//     hospital_name: req.hospital_name,
+//     recipient_district: req.recipient_district,
+//     recipient_upazila: req.recipient_upazila,
+//   });
+// };
+
 const handleEdit = (req) => {
   setEditData(req);
+
   setFormData({
-    recipient_name: req.recipient_name,
-    blood_group: req.blood_group,
-    hospital_name: req.hospital_name,
-    recipient_district: req.recipient_district,
-    recipient_upazila: req.recipient_upazila,
+    recipient_name: req.recipient_name || "",
+    blood_group: req.blood_group || "",
+    hospital_name: req.hospital_name || "",
+    recipient_district: req.recipient_district || "",
+    recipient_upazila: req.recipient_upazila || "",
   });
 };
 
+//   const handleUpdate = async () => {
+//   try {
+//     const res = await axiosSecure.patch(
+//       `/my-request/${editData._id}`,
+    
+//     );
 
+//     if (res.data.success) {
+//       Swal.fire("Success", "Updated successfully", "success");
 
-  const handleUpdate = async () => {
+//       // UI update
+//       setRequests((prev) =>
+//         prev.map((item) =>
+//           item._id === editData._id
+//             ? { ...item, ...formData }
+//             : item
+//         )
+//       );
+
+//       setEditData(null);
+//     }
+//   } catch (err) {
+//     Swal.fire("Error", "Update failed",err);
+//   }
+// };
+
+const handleUpdate = async () => {
   try {
     const res = await axiosSecure.patch(
       `/my-request/${editData._id}`,
-    
+      formData
     );
 
     if (res.data.success) {
       Swal.fire("Success", "Updated successfully", "success");
 
-      // UI update
       setRequests((prev) =>
         prev.map((item) =>
-          item._id === editData._id
-            ? { ...item, ...formData }
-            : item
+          item._id === editData._id ? { ...item, ...formData } : item
         )
       );
 
       setEditData(null);
     }
   } catch (err) {
-    Swal.fire("Error", "Update failed", "error");
+    Swal.fire("Error", "Update failed", err);
   }
 };
-
   return (
     <div className="max-w-7xl mx-auto p-6">
 
@@ -262,12 +300,12 @@ const handleEdit = (req) => {
                   {/* ACTIONS */}
                   <td className="p-3 space-x-1">
 
-                  <button
+                  {/* <button
   onClick={() => handleEdit(req)}
   className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
 >
   Edit
-                    </button>
+                    </button> */}
                     <button
   onClick={() => setSelectedRequest(req)}
   className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
@@ -432,4 +470,3 @@ const handleEdit = (req) => {
 };
 
 export default MyDonationRequests;
-

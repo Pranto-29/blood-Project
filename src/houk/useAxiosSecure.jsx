@@ -6,7 +6,7 @@
 // // import { useNavigate } from 'react-router-dom';
 
 // // const axiosSecure = axios.create({
-// //   baseURL: 'http://localhost:5000/',
+// //   baseURL: 'https://backend-11-asiment.vercel.app//',
 // // });
 
 // // const useAxiosSecure = () => {
@@ -58,7 +58,7 @@
 // import { useNavigate } from 'react-router-dom';
 
 // const axiosSecure = axios.create({
-//   baseURL: 'http://localhost:5000', 
+//   baseURL: 'https://backend-11-asiment.vercel.app/', 
 // });
 
 // const useAxiosSecure = () => {
@@ -106,7 +106,7 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://backend-11-asiment.vercel.app",
 });
 
 const useAxiosSecure = () => {
@@ -114,8 +114,7 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    // 🔐 REQUEST INTERCEPTOR
+    //  REQUEST INTERCEPTOR
     const requestInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
         try {
@@ -131,7 +130,7 @@ const useAxiosSecure = () => {
       }
     );
 
-    // 🚨 RESPONSE INTERCEPTOR
+    // RESPONSE INTERCEPTOR
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (res) => res,
       async (err) => {
