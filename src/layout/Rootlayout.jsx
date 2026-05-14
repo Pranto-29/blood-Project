@@ -13,6 +13,7 @@ const Rootlayout = () => {
     );
 };
 
+<<<<<<< HEAD
 export default Rootlayout;
 
 // import React from 'react';
@@ -37,3 +38,6 @@ export default Rootlayout;
 // };
 
 // export default Rootlayout;
+=======
+export default Rootlayout;
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc

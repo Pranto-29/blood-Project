@@ -12,6 +12,7 @@ const Loading = () => {
     );
 };
 
+<<<<<<< HEAD
 export default Loading;
 
 // import React from "react";
@@ -37,3 +38,6 @@ export default Loading;
 // };
 
 // export default Loading;
+=======
+export default Loading;
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc

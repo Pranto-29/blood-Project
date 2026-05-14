@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
 import { createBrowserRouter } from "react-router-dom";
 import Rootlayout from "../layout/Rootlayout";
 import Authlayout from "../layout/Authlayout";
@@ -25,9 +30,17 @@ import CreatePage from "../pages/Dashborad/CreatePage/CreatePage";
 import RequestDetails from "../pages/Dashborad/RequestDetails/RequestDetails";
 import DashboradHome from "../pages/Dashborad/DashboradHome/DashboradHome";
 import MyDonationRequests from "../pages/Dashborad/MyRequest/MyRequest";
+<<<<<<< HEAD
 import Requests from "../pages/Requests/Requests";
 import AdminDashboardHome from "../pages/Dashborad/MainDashborad/AdminDashboradHome";
 import ErrorPage from "../pages/ErrorPage/ErrorPage"; 
+=======
+
+
+
+
+
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +55,7 @@ export const router = createBrowserRouter([
         path: "blog",
         element: <Blog />,
       },
+<<<<<<< HEAD
 
       {
         path: "work",
@@ -126,6 +140,55 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+=======
+     
+      {
+        path: 'work',
+        element:<Work></Work>
+      },
+      
+       {
+        path: 'payment-success',
+        element:<PaymentSucces></PaymentSucces>
+      },
+      {
+        path: 'payment-cancel',
+        element:<PaymentCancel></PaymentCancel>
+      },
+      {
+        path: 'funding-page',
+        element:<PrivateRoute><FundingPage></FundingPage></PrivateRoute>
+      },
+      {
+        path: "donation-request",
+        element:<DonationRequest></DonationRequest>
+      },
+      {
+        path: "search",
+        element:<SearchPage></SearchPage>
+      },
+      {
+        path: 'funding',
+        element:<Funding></Funding>
+      },
+      {
+        path: "add-request",
+        element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
+      },
+      {
+        path: "requests/:id",
+        element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
+      } ,
+      
+    {
+  path: 'join-us',
+  element: (
+    <PrivateRoute>
+      <JoinDoctor />
+    </PrivateRoute>
+  )
+}
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
     ],
   },
 
@@ -155,7 +218,11 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
+<<<<<<< HEAD
         index: true,
+=======
+        index: true,   //  Dashboard default page
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
         element: <MainDashborad />,
       },
 
@@ -163,13 +230,18 @@ export const router = createBrowserRouter([
         path: "add-product",
         element: <AddProduct />,
       },
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
       {
         path: "/dashboard/add-request",
         element: <ManagProduct />,
       },
       {
         path: "users",
+<<<<<<< HEAD
         element: <User />,
       },
       {
@@ -204,8 +276,43 @@ export const router = createBrowserRouter([
         path: "add-request",
         element: <CreatePage></CreatePage>,
       },
+=======
+        element:<User />
+      },
+      {
+        path: "/dashboard/my-requests",
+        element:<MyDonationRequests></MyDonationRequests>
+      },
+    {
+  path: "home",
+  element: <MainDashborad />
+},
+      {
+        path: 'profile',
+        element:<MyProfile></MyProfile>
+      },
+     
+      {
+         path: "/dashboard/donation-request",
+         element:<DonationRequest></DonationRequest>
+
+      },
+    {
+       path: 'all-blood-donation-requests',
+       element:<DonationRequest></DonationRequest>
+    },
+    {
+      path: "add-request",
+      element:<CreatePage></CreatePage>
+    },
+
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
     ],
   },
 ]);
 
 export default router;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc

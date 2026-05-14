@@ -6,7 +6,11 @@
 // // import { useNavigate } from 'react-router-dom';
 
 // // const axiosSecure = axios.create({
+<<<<<<< HEAD
 // //   baseURL: 'https://backend-11-asiment.vercel.app//',
+=======
+// //   baseURL: 'http://localhost:5000/',
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
 // // });
 
 // // const useAxiosSecure = () => {
@@ -58,7 +62,11 @@
 // import { useNavigate } from 'react-router-dom';
 
 // const axiosSecure = axios.create({
+<<<<<<< HEAD
 //   baseURL: 'https://backend-11-asiment.vercel.app/', 
+=======
+//   baseURL: 'http://localhost:5000', 
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
 // });
 
 // const useAxiosSecure = () => {
@@ -106,7 +114,11 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
+<<<<<<< HEAD
   baseURL: "https://backend-11-asiment.vercel.app",
+=======
+  baseURL: "http://localhost:5000",
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
 });
 
 const useAxiosSecure = () => {
@@ -114,7 +126,12 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+<<<<<<< HEAD
     //  REQUEST INTERCEPTOR
+=======
+
+    // 🔐 REQUEST INTERCEPTOR
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
     const requestInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
         try {
@@ -130,7 +147,11 @@ const useAxiosSecure = () => {
       }
     );
 
+<<<<<<< HEAD
     // RESPONSE INTERCEPTOR
+=======
+    // 🚨 RESPONSE INTERCEPTOR
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (res) => res,
       async (err) => {

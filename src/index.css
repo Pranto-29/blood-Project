@@ -1,6 +1,12 @@
 @import "tailwindcss";
+<<<<<<< HEAD
 @import "tailwindcss";
 
+=======
+@plugin "daisyui" {
+      themes: light --default;
+};
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
 
 @plugin "daisyui/theme" {
   name: "light";

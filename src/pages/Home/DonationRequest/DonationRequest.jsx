@@ -31,7 +31,11 @@ useEffect(() => {
     try {
       let res;
 
+<<<<<<< HEAD
       if (currentUser?.role === "donnar") {
+=======
+      if (currentUser?.role === "donor") {
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
         res = await axiosSecure.get("/my-request");
 
         console.log("MY REQUEST:", res.data);
@@ -89,7 +93,11 @@ useEffect(() => {
     try {
       if (currentUser?.role === "admin") {
         await axiosSecure.delete(`/admin-request/${id}`);
+<<<<<<< HEAD
       } else if (currentUser?.role === "donnar") {
+=======
+      } else if (currentUser?.role === "donor") {
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
         await axiosSecure.delete(`/my-request/${id}`);
       }
 
@@ -261,6 +269,7 @@ useEffect(() => {
   );
 };
 
+<<<<<<< HEAD
 export default DonationRequest;
 
 // import React, { useEffect, useState, useContext } from "react";
@@ -394,3 +403,6 @@ export default DonationRequest;
 // };
 
 // export default DonationRequest;
+=======
+export default DonationRequest;
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc

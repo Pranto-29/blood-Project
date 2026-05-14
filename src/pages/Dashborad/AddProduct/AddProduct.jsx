@@ -23,7 +23,11 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
       const res = await axios.post("https://backend-11-asiment.vercel.app//products", formData);
+=======
+      const res = await axios.post("http://localhost:5000/products", formData);
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
       console.log("Product added:", res.data);
       alert("Product added successfully");
 

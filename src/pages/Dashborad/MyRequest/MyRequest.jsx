@@ -24,6 +24,7 @@ const MyDonationRequests = () => {
   const totalPages = Math.ceil(total / size);
    const [selectedRequest, setSelectedRequest] = useState(null);
    const [editData, setEditData] = useState(null);
+<<<<<<< HEAD
   
    const [formData, setFormData] = useState({
   recipient_name: "",
@@ -32,6 +33,8 @@ const MyDonationRequests = () => {
   recipient_district: "",
   recipient_upazila: "",
 });
+=======
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
   // ================= FETCH =================
   const fetchData = async () => {
     if (!user?.email) return;
@@ -75,7 +78,11 @@ const MyDonationRequests = () => {
         );
       }
     } catch (err) {
+<<<<<<< HEAD
       Swal.fire("Error", "Update failed" ,err);
+=======
+      Swal.fire("Error", "Update failed", "error",err);
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
     }
   };
 
@@ -131,6 +138,7 @@ console.log("REQUESTS:", requests);
 
 
   // ================= EDIT =================
+<<<<<<< HEAD
   // const handleEdit = (id) => {
   //   navigate(`/dashboard/add-request/${id}`);
   // };
@@ -206,6 +214,12 @@ const handleUpdate = async () => {
     Swal.fire("Error", "Update failed", err);
   }
 };
+=======
+  const handleEdit = (id) => {
+    navigate(`/dashboard/add-request/${id}`);
+  };
+
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
   return (
     <div className="max-w-7xl mx-auto p-6">
 
@@ -300,12 +314,21 @@ const handleUpdate = async () => {
                   {/* ACTIONS */}
                   <td className="p-3 space-x-1">
 
+<<<<<<< HEAD
                   {/* <button
   onClick={() => handleEdit(req)}
   className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
 >
   Edit
                     </button> */}
+=======
+                    <button
+                      onClick={() => handleEdit(req._id)}
+                      className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
+                    >
+                      Edit
+                    </button>
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
                     <button
   onClick={() => setSelectedRequest(req)}
   className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
@@ -417,6 +440,10 @@ const handleUpdate = async () => {
             {new Date(selectedRequest.createdAt).toLocaleString()}
           </span>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
       </div>
 
       {/* CLOSE BUTTON */}
@@ -470,3 +497,7 @@ const handleUpdate = async () => {
 };
 
 export default MyDonationRequests;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
