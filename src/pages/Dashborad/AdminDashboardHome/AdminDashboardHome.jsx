@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // // // import React, { useEffect, useState, useContext } from "react";
 // // // import useAxiosSecure from "../../../houk/useAxiosSecure";
 // // // import { AuthContext } from "../../../context/AuthContext/AuthContext";
@@ -134,8 +134,8 @@
 
 
 
-=======
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
+
+
 import React, { useEffect, useState, useContext } from "react";
 import useAxiosSecure from "../../../houk/useAxiosSecure";
 import { AuthContext } from "../../../context/AuthContext/AuthContext";
@@ -146,7 +146,7 @@ const AdminDashboardHome = () => {
   const { user } = useContext(AuthContext);
 
   const [stats, setStats] = useState([]);
-<<<<<<< HEAD
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -257,7 +257,7 @@ const AdminDashboardHome = () => {
           </div>
         ))}
 
-=======
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -294,14 +294,14 @@ const AdminDashboardHome = () => {
             <p>{s.value}</p>
           </div>
         ))}
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
+
       </div>
     </div>
   );
 };
 
-<<<<<<< HEAD
+
 export default AdminDashboardHome;
-=======
+
 export default AdminDashboardHome;
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
+

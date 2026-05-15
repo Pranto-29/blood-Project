@@ -354,7 +354,7 @@ const RequestDetails = () => {
 
   const [amount, setAmount] = useState("");
 
-  // ================= FETCH =================
+  // === FETCH ===
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -372,7 +372,7 @@ const RequestDetails = () => {
     fetchData();
   }, [id, axiosSecure, navigate]);
 
-  // ================= CONFIRM DONATION =================
+  // === CONFIRM DONATION ===
   const handleConfirm = async () => {
     setUpdating(true);
     try {
@@ -396,7 +396,7 @@ const RequestDetails = () => {
     }
   };
 
-  // ================= LOADING =================
+  // === LOADING ===
   if (loading) {
     return (
       <p className="text-center mt-20 text-gray-500 text-lg">
@@ -405,7 +405,7 @@ const RequestDetails = () => {
     );
   }
 
-  // ================= NOT FOUND =================
+  // === NOT FOUND ===
   if (!data) {
     return (
       <p className="text-center mt-20 text-red-500 text-lg">

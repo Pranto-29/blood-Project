@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // // import React from 'react';
 
 // // const Forbiden = () => {
@@ -62,7 +62,7 @@ const Forbidden = ({ message }) => {
 };
 
 export default Forbidden;
-=======
+
 // import React from 'react';
 
 // const Forbiden = () => {
@@ -90,4 +90,4 @@ const Forbidden = ({ message }) => (
 );
 
 export default Forbidden;
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
+

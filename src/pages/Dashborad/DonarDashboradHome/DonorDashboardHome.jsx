@@ -16,7 +16,7 @@ const DonorDashboardHome = () => {
 
      const [selectedRequest, setSelectedRequest] = useState(null);
      const [editData, setEditData] = useState(null);
-    // ================= FETCH =================
+    // === FETCH ===
 
   // FETCH DATA
   useEffect(() => {
@@ -196,7 +196,7 @@ const DonorDashboardHome = () => {
                 ))}
               </tbody>
             </table>
-                 {/* ================= MODAL ================= */}
+                 {/* === MODAL === */}
 {selectedRequest && (
   <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
 

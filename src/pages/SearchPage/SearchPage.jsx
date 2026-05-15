@@ -3,13 +3,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../houk/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const SearchPage = () => {
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
+
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedUpazila, setSelectedUpazila] = useState("");
   const [selectedBloodGroup, setSelectedBloodGroup] = useState("");
+
   const [results, setResults] = useState([]);
 
   const axiosSecure = useAxiosSecure();
@@ -17,9 +20,8 @@ const SearchPage = () => {
   const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
   const selectedDistrictName =
-    districts.find((d) => d.id === selectedDistrict)?.name || "";
+    districts.find((d) => String(d.id) === String(selectedDistrict))?.name || "";
 
-  // Load districts & upazilas JSON
   useEffect(() => {
     axios.get("/districts.json").then((res) => {
       setDistricts(res.data[2].data);
@@ -30,35 +32,62 @@ const SearchPage = () => {
     });
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
 
-    // Search API call
-    axiosSecure
-      .get(
+    try {
+      const res = await axiosSecure.get(
         `/search-requests?bloodGroup=${selectedBloodGroup}&district=${selectedDistrictName}&upazila=${selectedUpazila}`
-      )
-      .then((res) => setResults(res.data))
-      .catch((err) => console.error(err));
+      );
+
+      const data = res.data || [];
+
+      if (data.length === 0) {
+        Swal.fire({
+          icon: "info",
+          title: "No Data Found",
+          text: "এই search এর জন্য কোনো donor পাওয়া যায়নি 😢",
+        });
+
+        setResults([]);
+        return;
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Search Complete",
+        text: `${data.length} জন donor পাওয়া গেছে 🎉`,
+      });
+
+      setResults(data);
+    } catch (error) {
+      console.error(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Search করতে সমস্যা হয়েছে 😢",
+      });
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 py-16 px-4 flex flex-col items-center">
 
-      {/* Search Form */}
+      {/* SEARCH FORM */}
       <form
         onSubmit={handleSearch}
         className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md grid gap-4"
       >
-        <h2 className="text-2xl font-bold text-center text-gray-900">
+        <h2 className="text-2xl font-bold text-center">
           Search Donors
         </h2>
 
-        {/* Blood Group Selector */}
+        {/* Blood Group */}
         <select
           value={selectedBloodGroup}
           onChange={(e) => setSelectedBloodGroup(e.target.value)}
-          className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:outline-none"
+          className="border p-3 rounded-lg"
         >
           <option value="">Select Blood Group</option>
           {bloodGroups.map((bg) => (
@@ -68,14 +97,14 @@ const SearchPage = () => {
           ))}
         </select>
 
-        {/* District Selector */}
+        {/* District */}
         <select
           value={selectedDistrict}
           onChange={(e) => {
             setSelectedDistrict(e.target.value);
-            setSelectedUpazila(""); 
+            setSelectedUpazila("");
           }}
-          className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:outline-none"
+          className="border p-3 rounded-lg"
         >
           <option value="">Select District</option>
           {districts.map((d) => (
@@ -85,16 +114,17 @@ const SearchPage = () => {
           ))}
         </select>
 
-        {/* Upazila Selector */}
+        {/* Upazila */}
         <select
           value={selectedUpazila}
           onChange={(e) => setSelectedUpazila(e.target.value)}
-          className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:outline-none"
-          disabled={!selectedDistrict}
+          className="border p-3 rounded-lg"
         >
           <option value="">Select Upazila</option>
           {upazilas
-            .filter((u) => u.district_id === selectedDistrict)
+            .filter(
+              (u) => String(u.district_id) === String(selectedDistrict)
+            )
             .map((u) => (
               <option key={u.id} value={u.name}>
                 {u.name}
@@ -102,52 +132,39 @@ const SearchPage = () => {
             ))}
         </select>
 
-        {/* Search Button */}
+        {/* BUTTON */}
         <button
           type="submit"
-          className="bg-red-500 text-white font-semibold rounded-lg p-3 hover:bg-red-600 transition"
+          className="bg-red-500 text-white p-3 rounded-lg hover:bg-red-600"
         >
           Search
         </button>
       </form>
 
-      {/* Search Results */}
-      <div className="w-full max-w-6xl mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {results.length === 0 ? (
-          <p className="col-span-full text-center text-gray-500 mt-6">
-            {selectedBloodGroup || selectedDistrict || selectedUpazila
-              ? "No donors found for your search."
-              : "Please fill the search form and click Search."}
-          </p>
-        ) : (
-          results.map((donar) => (
-            <div
-              key={donar._id}
-              className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition"
-            >
-              <h3 className="text-xl font-semibold mb-2">{donar.recipient_name}</h3>
-              <p className="text-gray-600">
-                <span className="font-medium">Blood Group:</span> {donar.blood_group}
-              </p>
-              <p className="text-gray-600">
-                <span className="font-medium">District:</span> {donar.recipient_district}
-              </p>
-              <p className="text-gray-600">
-                <span className="font-medium">Upazila:</span> {donar.recipient_upazila}
-              </p>
-              <p className="text-gray-600">
-                <span className="font-medium">Hospital:</span> {donar.hospital_name}
-              </p>
-              <p className="text-gray-400 text-sm mt-2">
-                Requested At: {new Date(donar.createdAt).toLocaleString()}
-              </p>
-            </div>
-          ))
-        )}
+      {/* RESULTS */}
+      <div className="w-full max-w-6xl mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {results.map((donnar) => (
+          <div
+            key={donnar._id}
+            className="bg-white p-5 rounded-xl shadow"
+          >
+            <h2 className="text-xl font-bold">
+              {donnar.recipient_name}
+            </h2>
+
+            <p>🩸 Blood: {donnar.blood_group}</p>
+            <p>📍 District: {donnar.recipient_district}</p>
+            <p>📌 Upazila: {donnar.recipient_upazila}</p>
+            <p>🏥 Hospital: {donnar.hospital_name}</p>
+
+            <p className="text-sm text-gray-500 mt-2">
+              ⏰ {new Date(donnar.createdAt).toLocaleString()}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
 export default SearchPage;
-

@@ -11,12 +11,10 @@ const useRole = () => {
 
   const  {isLoading:reLoading, data : role = 'user'} = useQuery({
     queryKey: ['user-role', user?.email],
-    queryFn: async () => {
-<<<<<<< HEAD
+    queryFn: async () => { 
       const res = await axiosSecure.get(`/user/role/${user.email}`);
-=======
-      const res = await axiosSecure.get(`/user/${user.email}/role`);
->>>>>>> b616efc448974e0ec8e467f018fc2318782d78fc
+
+      // const res = await axiosSecure.get(`/user/${user.email}/role`);
       console.log('in the useRole', res.data);
       return res.data?.role || 'user';
     }
