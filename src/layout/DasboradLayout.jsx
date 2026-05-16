@@ -71,7 +71,7 @@ const DashboardLayout = () => {
                 <FaUser /> All Users
               </NavLink>
 
-              <NavLink to="/dashboard/donation-request" className={navClass}>
+              <NavLink to="/dashboard/my-requests" className={navClass}>
                 <MdBloodtype /> All Requests
               </NavLink>
             </>

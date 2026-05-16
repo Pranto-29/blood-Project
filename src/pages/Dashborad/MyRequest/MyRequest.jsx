@@ -314,12 +314,12 @@ const handleUpdate = async () => {
 
                   {/* ACTIONS */}
                   <td className="p-3 space-x-1">
-                 <button
+                 {/* <button
   onClick={() => handleEdit(req)}
   className="bg-gray-500 text-white px-2 py-1 rounded text-xs"
 >
   Edit
-                    </button>
+                    </button> */}
 
                     <button
                       onClick={() => handleEdit(req._id)}
