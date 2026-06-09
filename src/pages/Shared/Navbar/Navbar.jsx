@@ -30,19 +30,78 @@ const Navbar = () => {
     setProfileOpen(false);
   };
 
+  // const links = (
+  //   <>
+
+  //     <li><NavLink to="/" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Home</NavLink></li>
+  //     <li><NavLink to="/requestes" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Donation Request</NavLink></li>
+  //     <li><NavLink to="/blog" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Blogs</NavLink></li>
+  //     <li><NavLink to="/funding" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Donate Page</NavLink></li>
+  //     <li><NavLink to="/search" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Search Page</NavLink></li>
+  //     <li><NavLink to="/funding-page" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Funding Page</NavLink></li>
+  //     <li><NavLink to="/requests/:id" className="px-3 py-2 rounded hover:bg-pink-400 dark:hover:bg-gray-700 dark:text-white">Request Details</NavLink></li>
+
+  //   </>
+  // );
+
+
   const links = (
-    <>
+  <>
+    <li>
+      <NavLink to="/" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">
+        Home
+      </NavLink>
+    </li>
 
-      <li><NavLink to="/" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Home</NavLink></li>
-      <li><NavLink to="/requestes" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Donation Request</NavLink></li>
-      <li><NavLink to="/blog" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Blogs</NavLink></li>
-      <li><NavLink to="/funding" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Donate Page</NavLink></li>
-      <li><NavLink to="/search" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Search Page</NavLink></li>
-      <li><NavLink to="/funding-page" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">Funding Page</NavLink></li>
-      <li><NavLink to="/requests/:id" className="px-3 py-2 rounded hover:bg-pink-400 dark:hover:bg-gray-700 dark:text-white">Request Details</NavLink></li>
+    <li>
+      <NavLink to="/requestes" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">
+        Donation Request
+      </NavLink>
+    </li>
 
-    </>
-  );
+    <li>
+      <NavLink to="/blog" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">
+        Blogs
+      </NavLink>
+    </li>
+
+    <li>
+      <NavLink to="/funding" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">
+        Donate Page
+      </NavLink>
+    </li>
+
+    <li>
+      <NavLink to="/search" className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white">
+        Search Page
+      </NavLink>
+    </li>
+
+    {/* ✅ ONLY FOR LOGGED USER */}
+    {user && (
+      <>
+        <li>
+          <NavLink
+            to="/funding-page"
+            className="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-pink-400 dark:text-white"
+          >
+            Funding Page
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/requests/:id"
+            className="px-3 py-2 rounded hover:bg-pink-400 dark:hover:bg-gray-700 dark:text-white"
+          >
+            Request Details
+          </NavLink>
+        </li>
+      </>
+    )}
+  </>
+);
+
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
@@ -152,3 +211,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+

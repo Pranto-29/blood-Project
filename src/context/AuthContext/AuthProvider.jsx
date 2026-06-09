@@ -51,7 +51,6 @@ const AuthProvider = ({children}) => {
 
     axios.get(`https://backend-11-asiment.vercel.app/user/role/${user.email}`)
 
-    // axios.get(`http://localhost:5000/user/role/${user.email}`)
 
     .then(res => {
         setRole(res.data.role)

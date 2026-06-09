@@ -44,36 +44,6 @@ const MyProfile = () => {
       [name]: value,
     }));
   };
-
-  // SAVE PROFILE
-  // const handleSave = async () => {
-  //   try {
-  //     await axiosSecure.put(`/user/${profile._id}`, profile);
-
-  //     // reload fresh data
-  //     const res = await axiosSecure.get(`/user?email=${user.email}`);
-  //     setProfile(res.data[0]);
-
-  //     setEditMode(false);
-
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Updated!",
-  //       text: "Profile updated successfully",
-  //       timer: 2000,
-  //       showConfirmButton: false,
-  //     });
-  //   } catch (err) {
-  //     console.error(err);
-
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Failed!",
-  //       text: "Profile update failed",
-  //     });
-  //   }
-  // };
-
   const handleSave = async () => {
   try {
     await axiosSecure.patch(`/user/${user.email}`, {

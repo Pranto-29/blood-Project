@@ -29,6 +29,11 @@ import MyDonationRequests from "../pages/Dashborad/MyRequest/MyRequest";
 import Requests from "../pages/Requests/Requests";
 import AdminDashboardHome from "../pages/Dashborad/MainDashborad/AdminDashboradHome";
 import ErrorPage from "../pages/ErrorPage/ErrorPage"; 
+import AddCharts from "../pages/Add charts/Add charts";
+import ExportSystem from "../pages/Export System/Export System";
+
+
+
 
 
 export const router = createBrowserRouter([
@@ -164,8 +169,7 @@ export const router = createBrowserRouter([
       {
         path: "requests/:id",
         element:<PrivateRoute><RequestDetails></RequestDetails></PrivateRoute>
-      } ,
-      
+      } ,  
     {
   path: 'join-us',
   element: (
@@ -249,6 +253,18 @@ export const router = createBrowserRouter([
     {
       path: "add-request",
       element:<CreatePage></CreatePage>
+    },
+    {
+      path: "/dashboard/add-charts",
+      element:<AddCharts></AddCharts>
+    },
+    {
+      path: "/dashboard/add-charts",
+      element:<AddCharts></AddCharts>
+    },
+    {
+      path: "/dashboard/explore",
+      element:<ExportSystem></ExportSystem>
     },
 
     ],

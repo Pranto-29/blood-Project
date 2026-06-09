@@ -74,6 +74,14 @@ const DashboardLayout = () => {
               <NavLink to="/dashboard/my-requests" className={navClass}>
                 <MdBloodtype /> All Requests
               </NavLink>
+
+                <NavLink to="/dashboard/add-charts" className={navClass}>
+                <MdBloodtype /> Analysis 
+              </NavLink>
+
+              <NavLink to="/dashboard/explore" className={navClass}>
+                <MdBloodtype /> Explore Data
+              </NavLink>
             </>
           )}
 
