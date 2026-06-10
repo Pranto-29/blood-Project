@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { FaFacebook, FaTwitter, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import Logos from "../../../components/Logos";
 import { SiGmail } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -46,19 +48,49 @@ const Footer = () => {
             <FaEnvelope className="mr-2 text-red-500" />
             support@bloodDonation.com
           </p>
+
+           <p className="flex items-center">
+            <FaLocationDot className="mr-2 text-red-500" />
+             Sylhet, Bangladesh
+          </p>
         </div>
 
-        {/* Social */}
-        <div>
+
+        <div className="flex gap-4 text-xl">
           <h3 className="text-lg font-semibold text-white mb-3">
-            Follow Us
-          </h3>
-          <div className="flex gap-4 text-xl">
-            <FaFacebook className="hover:text-red-500 cursor-pointer" />
-            <FaTwitter className="hover:text-red-500 cursor-pointer" />
-            <SiGmail className="hover:text-red-500 cursor-pointer" />
-          </div>
-        </div>
+</h3>
+  <a
+    href="https://www.facebook.com"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <FaFacebook className="hover:text-red-500 cursor-pointer" />
+  </a>
+
+  <a
+    href="https://twitter.com"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <FaTwitter className="hover:text-red-500 cursor-pointer" />
+  </a>
+
+  <a
+    href="https://mail.google.com"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <SiGmail className="hover:text-red-500 cursor-pointer" />
+  </a>
+
+  <a
+  href="https://www.linkedin.com"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <FaLinkedin className="hover:text-red-500 cursor-pointer" />
+</a>
+</div>
 
       </div>
 
