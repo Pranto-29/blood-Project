@@ -107,23 +107,6 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-//       {
-//   path: "add-request",
-//   element: (
-//     <PrivateRoute>
-//       <CreatePage />
-//     </PrivateRoute>
-//   ),
-// },
-
-// {
-//   path: "requests/:id",
-//   element: (
-//     <PrivateRoute>
-//       <RequestDetails />
-//     </PrivateRoute>
-//   ),
-// },
     
       {
         path: "join-us",
