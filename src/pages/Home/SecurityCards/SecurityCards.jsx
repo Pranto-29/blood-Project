@@ -1,10 +1,32 @@
-import React from 'react';
+import React from "react";
+import {
+  FaShieldAlt,
+  FaLock,
+  FaUserShield,
+  FaCertificate,
+} from "react-icons/fa";
 
 const securityStats = [
-  { number: "99.9%", title: "Uptime Guarantee" },
-  { number: "256-bit", title: "SSL Encryption" },
-  { number: "24/7", title: "Security Monitoring" },
-  { number: "100%", title: "GDPR Compliant" },
+  {
+    number: "99.9%",
+    title: "Uptime Guarantee",
+    icon: <FaShieldAlt />,
+  },
+  {
+    number: "256-bit",
+    title: "SSL Encryption",
+    icon: <FaLock />,
+  },
+  {
+    number: "24/7",
+    title: "Security Monitoring",
+    icon: <FaUserShield />,
+  },
+  {
+    number: "100%",
+    title: "GDPR Compliant",
+    icon: <FaCertificate />,
+  },
 ];
 
 const securityCerts = [
@@ -16,39 +38,65 @@ const securityCerts = [
 
 const SecurityCards = () => {
   return (
-    <div className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Security by the Numbers</h2>
-        <p className="text-gray-600 mb-12">
-          Our commitment to safety and security in measurable terms
-        </p>
+    <section className="py-20 bg-gradient-to-br from-red-50 via-white to-blue-50">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span className="inline-block px-5 py-2 rounded-full bg-red-100 text-red-600 font-semibold">
+            🔒 Trusted & Secure
+          </span>
 
-        {/* Stats Cards */}
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4 mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-5">
+            Security by the Numbers
+          </h2>
+
+          <p className="mt-5 text-lg text-gray-600 max-w-3xl mx-auto leading-8">
+            We prioritize the privacy and safety of every donor and recipient.
+            Our platform follows international security standards to ensure
+            secure and reliable blood donation services.
+          </p>
+        </div>
+
+        {/* Statistics Cards */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mb-16">
           {securityStats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center hover:scale-105 transition-transform duration-300"
+              className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-8 flex flex-col items-center text-center"
             >
-              <span className="text-4xl font-bold text-red-500 mb-2">{stat.number}</span>
-              <span className="text-gray-700 font-medium text-center">{stat.title}</span>
+              <div className="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center text-red-500 text-4xl group-hover:bg-red-500 group-hover:text-white duration-500">
+                {stat.icon}
+              </div>
+
+              <h3 className="text-4xl font-bold text-gray-800 mt-6">
+                {stat.number}
+              </h3>
+
+              <p className="mt-3 text-gray-600 font-semibold text-lg">
+                {stat.title}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* Certifications Cards */}
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
+        {/* Certification Cards */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {securityCerts.map((cert, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg rounded-xl p-6 text-left hover:shadow-2xl transition-shadow duration-300 text-center justify-center bg-blue-400"
+              className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-8 flex flex-col items-center justify-center text-center text-white"
             >
-              <span className="text-gray-900 font-semibold">{cert}</span>
+              <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mb-5">
+                <FaCertificate className="text-4xl" />
+              </div>
+
+              <h3 className="font-semibold text-lg leading-8">{cert}</h3>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
+
 export default SecurityCards;

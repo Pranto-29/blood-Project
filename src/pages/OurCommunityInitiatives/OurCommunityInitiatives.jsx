@@ -1,170 +1,108 @@
-// import React from "react";
 
-// const initiatives = [
-//   {
-//     title: "Blood Drive Events",
-//     description: `Regular community blood drives in schools, offices, and public spaces.
-// - Monthly drives in 64 districts
-// - Mobile blood collection units
-// - Weekend community events
-// - Festival season campaigns`,
-//     image:
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlrkfgh8E15OW_5vRdiiXmfDPv_fittMhcYg&s",
-//   },
-//   {
-//     title: "Volunteer Training",
-//     description: `Comprehensive training programs for community volunteers and coordinators.
-// - First aid certification
-// - Donor counseling skills
-// - Event organization training
-// - Digital platform usage`,
-//     image:
-//       "",
-//   },
-// {
-//   title: "Recognition Programs",
-//   description: `Honoring outstanding donors, volunteers, and community champions.
-// - Annual donor appreciation
-// - Volunteer of the month
-// - Corporate partnership awards
-// - Community impact certificates`,
-//   image:
-//     "https://images.unsplash.com/photo-1573164574390-2056d5f5a6fc?auto=format&fit=crop&w=800&q=80",
-// },
-//   {
-//     title: "Digital Outreach",
-//     description: `Leveraging technology to spread awareness and connect communities.
-// - Social media campaigns
-// - Mobile app notifications
-// - SMS awareness programs
-// - Online education resources`,
-//     image:
-//       "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=800&q=80",
-//   },
-// ];
 
-// const OurCommunityInitiatives = () => {
-//   return (
-//     <div className="py-16 bg-gray-50">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-//         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-//           Our Community Initiatives
-//         </h2>
-//         <p className="text-gray-600 mb-12">
-//           We believe in giving back to the community. Here are some of our key initiatives that make a positive impact.
-//         </p>
-
-//         <div className="grid gap-8 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
-//           {initiatives.map((initiative, index) => (
-//             <div
-//               key={index}
-//               className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
-//             >
-//               <img
-//                 src={initiative.image}
-//                 alt={initiative.title}
-//                 className="w-full h-56 object-cover"
-//               />
-//               <div className="p-6 text-left">
-//                 <h3 className="text-2xl font-semibold text-gray-800 mb-3">
-//                   {initiative.title}
-//                 </h3>
-//                 <p className="text-gray-600 whitespace-pre-line">
-//                   {initiative.description}
-//                 </p>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default OurCommunityInitiatives;
 
 import React from "react";
 
 const initiatives = [
   {
     title: "Blood Drive Events",
-    description: `Regular community blood drives in schools, offices, and public spaces.
-- Monthly drives in 64 districts
-- Mobile blood collection units
-- Weekend community events
-- Festival season campaigns`,
+    description: `Regular blood donation campaigns organized across the country.
+
+• Community blood drives
+• Mobile donation camps
+• Emergency blood support
+• Festival donation programs`,
     image:
-      "https://c7.alamy.com/comp/2D6N38T/blood-donation-t…hospital-laboratory-world-blood-donor-2D6N38T.jpg",
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1000&q=80",
   },
   {
     title: "Volunteer Training",
-    description: `Comprehensive training programs for community volunteers and coordinators.
-- First aid certification
-- Donor counseling skills
-- Event organization training
-- Digital platform usage`,
+    description: `Empowering volunteers with essential healthcare and leadership skills.
+
+• First Aid Training
+• Donor Management
+• Emergency Response
+• Community Leadership`,
     image:
-     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaJWNy7Sfk7sLTUiFmOkivh_b87D2B42iH0w&s",
+      "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80",
   },
   {
     title: "Recognition Programs",
-    description: `Honoring outstanding donors, volunteers, and community champions.
-- Annual donor appreciation
-- Volunteer of the month
-- Corporate partnership awards
-- Community impact certificates`,
+    description: `Celebrating the dedication of blood donors and volunteers.
+
+• Best Donor Awards
+• Volunteer Recognition
+• Community Certificates
+• Appreciation Events`,
     image:
-      "	https://blogimage.vantagecircle.com/content/images/2023/10/VC_Featured-Image-Dark.png",
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1000&q=80",
   },
   {
     title: "Digital Outreach",
-    description: `Leveraging technology to spread awareness and connect communities.
-- Social media campaigns
-- Mobile app notifications
-- SMS awareness programs
-- Online education resources`,
+    description: `Using technology to spread awareness and connect donors quickly.
+
+• Social Media Campaigns
+• SMS Alerts
+• Mobile App Support
+• Online Awareness Programs`,
     image:
-      "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80",
   },
 ];
 
 const OurCommunityInitiatives = () => {
   return (
-    <div className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="py-20 bg-gradient-to-br from-red-50 via-white to-pink-50">
+      <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          Our Community Initiatives
-        </h2>
-        <p className="text-gray-600 mb-12">
-          We believe in giving back to the community. Here are some of our key initiatives that make a positive impact.
-        </p>
+        <div className="text-center mb-16">
+          <span className="inline-block bg-red-100 text-red-600 px-5 py-2 rounded-full font-semibold">
+            ❤️ Community Support
+          </span>
+
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-6">
+            Our Community Initiatives
+          </h2>
+
+          <p className="mt-6 text-lg text-gray-600 max-w-3xl mx-auto leading-8">
+            We are committed to creating a healthier society through blood
+            donation, volunteer engagement, awareness campaigns, and community
+            support programs that save lives every day.
+          </p>
+        </div>
 
         {/* Cards */}
-        <div className="grid gap-8 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
+        <div className="grid md:grid-cols-2 gap-8">
           {initiatives.map((initiative, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
             >
-              <img
-                src={initiative.image}
-                alt={initiative.title}
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-6 text-left">
-                <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+              <div className="overflow-hidden">
+                <img
+                  src={initiative.image}
+                  alt={initiative.title}
+                  className="w-full h-72 object-cover group-hover:scale-110 transition duration-700"
+                />
+              </div>
+
+              <div className="p-7">
+                <h3 className="text-2xl font-bold text-gray-800 group-hover:text-red-500 duration-300">
                   {initiative.title}
                 </h3>
-                <p className="text-gray-600 whitespace-pre-line">
+
+                <p className="mt-4 text-gray-600 whitespace-pre-line leading-8">
                   {initiative.description}
                 </p>
+                <button className="mt-6 px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold hover:from-red-600 hover:to-pink-600 transition-all duration-300">
+                  Learn More →
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
